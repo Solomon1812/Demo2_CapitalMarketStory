@@ -1,0 +1,63 @@
+Aplicație web de Business Intelligence pentru analiza vânzărilor
+
+🔹 Cum se integrează în tema Tip A
+
+Analiză business → firmele au nevoie să își vizualizeze rapid performanța financiară fără să investească în ERP-uri costisitoare.
+
+Aplicație proprie → nu doar un dashboard configurat, ci efectiv o platformă dezvoltată care:
+
+primește input (date contabile în format Excel/CSV),
+
+le procesează,
+
+generează vizualizări interactive (grafic profit, cifră de afaceri, cheltuieli),
+
+aplică algoritmi simpli de previziune (ex: regresie liniară, ARIMA, Prophet de la Facebook AI).
+
+Valoare adăugată → compari modul clasic (Excel + tabele manuale) vs aplicația ta (upload → dashboard instant).
+
+
+🔹 Funcționalități propuse
+
+Upload date contabile (CSV/Excel).
+
+Coloane: venituri, cheltuieli, profit brut/net, active, pasive etc.
+
+ETL simplificat (Extract-Transform-Load).
+
+Validare date: corectitudine format, lipsă valori.
+
+Mapare automată pe indicatori economici.
+
+Dashboard ERP-like
+
+Grafice: evoluția veniturilor și cheltuielilor pe trimestre.
+
+KPI: profitabilitate, marjă, rata lichidității.
+
+Top 5 costuri / venituri.
+
+Previzionare Q+1
+
+Algoritmi ML pentru forecast (de ex. Prophet/ARIMA).
+
+Afișare predicție cu interval de încredere (min/max).
+
+Export rapoarte
+
+PDF pentru manageri.
+
+Excel pentru contabilitate.
+
+
+🔹 Pași de implementare practică
+
+Frontend: React/Angular → încărcare fișier, vizualizare dashboard.
+
+Backend: Python/Node.js → procesare date, rulare algoritmi forecast.
+
+Bază de date: PostgreSQL/MySQL → stocare date contabile.
+
+Biblioteci grafice: Chart.js, Recharts, D3.js → dashboard interactiv.
+
+Forecasting: Prophet (Facebook), scikit-learn sau statsmodels (ARIMA).
