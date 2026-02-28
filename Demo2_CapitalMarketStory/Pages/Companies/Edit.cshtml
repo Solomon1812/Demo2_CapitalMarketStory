@@ -1,0 +1,75 @@
+﻿@page
+@model Demo2_CapitalMarketStory.Pages.Companies.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Company.CompanyId" />
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Company.Name" class="control-label"></label>
+                <input asp-for="Company.Name" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Company.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Company.CUI" class="control-label"></label>
+                <input asp-for="Company.CUI" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Company.CUI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Company.FoundedDate" class="control-label"></label>
+                <input asp-for="Company.FoundedDate" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Company.FoundedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Company.CAEN" class="control-label"></label>
+                <input asp-for="Company.CAEN" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Company.CAEN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Company.HeadquartersAddress" class="control-label"></label>
+                <input asp-for="Company.HeadquartersAddress" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Company.HeadquartersAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company.PhoneNumber" class="control-label"></label>
+                <input asp-for="Company.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Company.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company.Email" class="control-label"></label>
+                <input asp-for="Company.Email" class="form-control" />
+                <span asp-validation-for="Company.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Company.Website" class="control-label"></label>
+                <input asp-for="Company.Website" class="form-control" />
+                <span asp-validation-for="Company.Website" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
