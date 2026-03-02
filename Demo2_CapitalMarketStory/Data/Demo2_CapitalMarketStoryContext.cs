@@ -15,5 +15,6 @@ namespace Demo2_CapitalMarketStory.Data
         }
 
         public DbSet<Demo2_CapitalMarketStory.Models.Company> Company { get; set; } = default!;
+        public DbSet<Demo2_CapitalMarketStory.Models.Import> Import { get; set; } = default!;
     }
 }

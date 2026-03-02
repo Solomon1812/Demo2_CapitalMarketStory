@@ -1,0 +1,54 @@
+﻿@page
+@model Demo2_CapitalMarketStory.Pages.Imports.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Import</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Import.ImportDate" class="control-label"></label>
+                <input asp-for="Import.ImportDate" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Import.ImportDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Import.FileName" class="control-label"></label>
+                <input asp-for="Import.FileName" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Import.FileName" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Import.CompanyId" class="control-label"></label>
+                <select asp-for="Import.CompanyId" class="form-control" asp-items="ViewBag.CompanyId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Import.Description" class="control-label"></label>
+                <input asp-for="Import.Description" class="form-control" />
+                <span asp-validation-for="Import.Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Alege fișierul .csv</label>
+                <input type="file" name="FisierCsv" class="form-control" accept=".csv" />
+            </div>
+
+            <button type="submit" class="btn btn-success">Procesează importul</button>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

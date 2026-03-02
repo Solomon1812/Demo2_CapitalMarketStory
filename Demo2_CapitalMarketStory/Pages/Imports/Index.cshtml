@@ -1,0 +1,54 @@
+﻿@page
+@model Demo2_CapitalMarketStory.Pages.Imports.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Import[0].ImportDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Import[0].FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Import[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Import[0].Company)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Import) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImportDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.HeadquartersAddress)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ImportId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ImportId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ImportId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

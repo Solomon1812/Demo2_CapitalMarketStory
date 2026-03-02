@@ -3,6 +3,6 @@
     public interface ICalculatorFinanciarService
     {
         // calcul indicatori pentru bilant 
-        Task<> CalculeazaKpiAsync();
+        //Task<> CalculeazaKpiAsync();
     }
 }

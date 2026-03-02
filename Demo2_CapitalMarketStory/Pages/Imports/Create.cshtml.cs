@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Demo2_CapitalMarketStory.Data;
 using Demo2_CapitalMarketStory.Models;
 
-namespace Demo2_CapitalMarketStory.Pages.Companies
+namespace Demo2_CapitalMarketStory.Pages.Imports
 {
     public class CreateModel : PageModel
     {
@@ -21,11 +21,12 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
 
         public IActionResult OnGet()
         {
+            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
             return Page();
         }
 
         [BindProperty]
-        public Company Company { get; set; } = default!;
+        public Import Import { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -35,10 +36,10 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
                 return Page();
             }
 
-            _context.Company.Add(Company);
+            _context.Import.Add(Import);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Imports/Create");
+            return RedirectToPage("./Index");
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Demo2_CapitalMarketStory.Models
 {
     public class YearlyFinancialReport
     {
+        [Key]
         public int ReportId { get; set; } //primary key autoincrement
+
 
         [Display(Name = "Company's tax identification numer")]
         [Required()]
@@ -117,32 +120,41 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         [Display(Name = "ROA Rentabilitatea activelor")]
+        [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
         public decimal ROA { get; set; }
         //interval optim 5%-15%
 
 
         [Display(Name = "ROE Rentabilitatea capitalului propriu")]
+        [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
         public decimal ROE { get; set; }
         //interval optim 15%-20%
 
 
         [Display(Name = "Marja de profit net")]
+        [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
         public decimal MarjaProfit { get; set; }
         //interval optim 1%-15%
 
 
         [Display(Name = "Rata de crestere a cifrei de afaceri nete")]
+        [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
         public decimal RataCrestereCifraAfaceriNet { get; set; }
 
 
         [Display(Name = "Rata de crestere a profitului")]
+        [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
         public decimal RataCrestereProfitNet { get; set; }
 
+
+        //foreign key and navigation property
+        public int ImportId { get; set; }
+        public Import Import { get; set; }
 
 
     }

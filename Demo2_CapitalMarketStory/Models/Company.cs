@@ -58,7 +58,7 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         //navigation property
-        public List<ImportHistory> Imports { get; set; }
+        public List<Import> Imports { get; set; }
 
 
     }
