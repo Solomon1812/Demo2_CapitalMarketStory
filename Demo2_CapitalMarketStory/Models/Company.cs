@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Demo2_CapitalMarketStory.Models
@@ -54,5 +56,10 @@ namespace Demo2_CapitalMarketStory.Models
         [StringLength(150, MinimumLength = 5)]
         public string? Website { get; set; }
 
-        }
+
+        //navigation property
+        public List<ImportHistory> Imports { get; set; }
+
+
+    }
 }

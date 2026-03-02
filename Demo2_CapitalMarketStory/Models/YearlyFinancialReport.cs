@@ -6,12 +6,9 @@ namespace Demo2_CapitalMarketStory.Models
     {
         public int ReportId { get; set; } //primary key autoincrement
 
-
-        [Display(Name = "Date imported")]
-        [DataType(DataType.Date)]
-        [Range(typeof(DateTime), "2014-01-01", "2025-12-31", ErrorMessage = "Date out of bounds")]
+        [Display(Name = "Company's tax identification numer")]
         [Required()]
-        public DateTime ImportDate { get; set; }
+        public int CUI { get; set; }
 
 
         [Display(Name = "Year of the report")]
@@ -120,28 +117,31 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         [Display(Name = "ROA Rentabilitatea activelor")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public int ROA { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
+        public decimal ROA { get; set; }
+        //interval optim 5%-15%
 
 
         [Display(Name = "ROE Rentabilitatea capitalului propriu")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public int ROE { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
+        public decimal ROE { get; set; }
+        //interval optim 15%-20%
 
 
         [Display(Name = "Marja de profit net")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public int MarjaProfit { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
+        public decimal MarjaProfit { get; set; }
+        //interval optim 1%-15%
 
 
         [Display(Name = "Rata de crestere a cifrei de afaceri nete")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public int RataCrestereCifraAfaceriNet { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
+        public decimal RataCrestereCifraAfaceriNet { get; set; }
 
 
         [Display(Name = "Rata de crestere a profitului")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public int RataCrestereProfitNet { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
+        public decimal RataCrestereProfitNet { get; set; }
 
 
 
