@@ -23,7 +23,7 @@ namespace Demo2_CapitalMarketStory.Models
 
         [Display(Name = "Date the company was founded")]
         [DataType(DataType.Date)]
-        [Range(typeof(DateTime), "1900-01-01", "2025-12-31", ErrorMessage = "Date out of bounds")]
+        //[Range(typeof(DateTime), "1900-01-01", "2025-12-31", ErrorMessage = "Date out of bounds")]
         [Required()]
         public DateTime FoundedDate { get; set; }
 
@@ -58,8 +58,8 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         //navigation property
-        public List<Import> Imports { get; set; }
 
+        public ICollection<Import> Imports { get; set; } = new List<Import>();
 
     }
 }

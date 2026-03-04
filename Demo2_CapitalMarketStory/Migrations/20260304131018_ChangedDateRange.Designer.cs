@@ -4,6 +4,7 @@ using Demo2_CapitalMarketStory.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Demo2_CapitalMarketStory.Migrations
 {
     [DbContext(typeof(Demo2_CapitalMarketStoryContext))]
-    partial class Demo2_CapitalMarketStoryContextModelSnapshot : ModelSnapshot
+    [Migration("20260304131018_ChangedDateRange")]
+    partial class ChangedDateRange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,7 +77,7 @@ namespace Demo2_CapitalMarketStory.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImportId"));
 
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -138,7 +141,7 @@ namespace Demo2_CapitalMarketStory.Migrations
                     b.Property<double>("Datorii")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ImportId")
+                    b.Property<int>("ImportId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("MarjaProfit")
@@ -200,7 +203,9 @@ namespace Demo2_CapitalMarketStory.Migrations
                 {
                     b.HasOne("Demo2_CapitalMarketStory.Models.Company", "Company")
                         .WithMany("Imports")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
                 });
@@ -209,7 +214,9 @@ namespace Demo2_CapitalMarketStory.Migrations
                 {
                     b.HasOne("Demo2_CapitalMarketStory.Models.Import", "Import")
                         .WithMany("Reports")
-                        .HasForeignKey("ImportId");
+                        .HasForeignKey("ImportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Import");
                 });

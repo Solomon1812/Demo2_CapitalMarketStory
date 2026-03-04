@@ -27,12 +27,12 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         //foreign key and navigation property
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
+        public int? CompanyId { get; set; }
+        public Company? Company { get; set; }
 
 
-        public List<YearlyFinancialReport> Reports { get; set; }
 
+        public ICollection<YearlyFinancialReport> Reports { get; set; } = new List<YearlyFinancialReport>();
 
 
     }

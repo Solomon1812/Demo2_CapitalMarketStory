@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Demo2_CapitalMarketStory.Data;
+using Demo2_CapitalMarketStory.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Demo2_CapitalMarketStory.Data;
-using Demo2_CapitalMarketStory.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Demo2_CapitalMarketStory.Pages.Companies
 {
@@ -38,7 +39,7 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
             _context.Company.Add(Company);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Imports/Create");
+            return RedirectToPage("/Imports/Create"); 
         }
     }
 }

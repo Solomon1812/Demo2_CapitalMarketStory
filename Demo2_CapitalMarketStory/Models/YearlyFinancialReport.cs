@@ -153,8 +153,8 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         //foreign key and navigation property
-        public int ImportId { get; set; }
-        public Import Import { get; set; }
+        public int? ImportId { get; set; }
+        public Import? Import { get; set; }
 
 
     }
