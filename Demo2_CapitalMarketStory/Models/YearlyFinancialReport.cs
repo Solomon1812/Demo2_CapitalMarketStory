@@ -21,97 +21,97 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         [Display(Name = "Active imobilizate")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double ActiveImobilizate { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal ActiveImobilizate { get; set; }
 
 
         [Display(Name = "Active circulante")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double ActiveCirculante { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal ActiveCirculante { get; set; }
 
 
         [Display(Name = "Stocuri")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double Stocuri { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal Stocuri { get; set; }
 
 
         [Display(Name = "Creante")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double Creante { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal Creante { get; set; }
 
 
         [Display(Name = "Casa")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double Casa { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal Casa { get; set; }
 
 
         [Display(Name = "Cheltuieli in avans")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double CheltuieliAvans { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal CheltuieliAvans { get; set; }
 
 
         [Display(Name = "Datorii")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double Datorii { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal Datorii { get; set; }
 
 
         [Display(Name = "Venituri in avant")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double VenituriAvans { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal VenituriAvans { get; set; }
 
 
         [Display(Name = "Provizioane")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double Provizioane { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal Provizioane { get; set; }
 
         [Display(Name = "Capitaluri sociale totale")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double CapitaluriTotale { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal CapitaluriTotale { get; set; }
 
 
         [Display(Name = "Capitaluri varsate")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double CapitaluriVarsate { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal CapitaluriVarsate { get; set; }
 
 
         [Display(Name = "Patrimoniu")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double Patrimoniu { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal Patrimoniu { get; set; }
 
 
         [Display(Name = "Cifra de afaceri neta")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double CifraAfaceriNet { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal CifraAfaceriNet { get; set; }
 
 
         [Display(Name = "Venituri totale")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double VenituriTotale { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal VenituriTotale { get; set; }
 
 
         [Display(Name = "Cheltuieli totale")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double CheltuieliTotale { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal CheltuieliTotale { get; set; }
 
 
         [Display(Name = "Profit brut")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double ProfitBrut { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal ProfitBrut { get; set; }
 
 
         [Display(Name = "Pierdere bruta")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double PierdereBrut { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal PierdereBrut { get; set; }
 
 
         [Display(Name = "Profit net")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double ProfitNet { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal ProfitNet { get; set; }
 
 
         [Display(Name = "Pierdere net")]
-        [Range(0, double.MaxValue, ErrorMessage = "Value must be non-negative")]
-        public double PierdereNet { get; set; }
+        [Range(typeof(decimal), "0", "9999999999")]
+        public decimal PierdereNet { get; set; }
 
 
         [Display(Name = "Numarul de salariati")]
