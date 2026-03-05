@@ -11,11 +11,11 @@ namespace Demo2_CapitalMarketStory.Services
         {
             // 1. Sortăm rapoartele crescător după an. 
             // OBLIGATORIU pentru ca formulele de creștere YoY (Year-over-Year) să funcționeze corect!
-            var sortedReports = reports.OrderBy(r => r.YearReported).ToList();
+            var SortedReports = reports.OrderBy(r => r.YearReported).ToList();
 
-            for (int i = 0; i < sortedReports.Count; i++)
+            for (int i = 0; i < SortedReports.Count; i++)
             {
-                var current = sortedReports[i];
+                var current = SortedReports[i];
 
                 // --- CALCULUL INDICATORILOR STATICI ---
 
@@ -45,7 +45,7 @@ namespace Demo2_CapitalMarketStory.Services
                 else
                 {
                     // Luăm datele din anul precedent
-                    var previous = sortedReports[i - 1];
+                    var previous = SortedReports[i - 1];
 
                     // 4. Rata de creștere a cifrei de afaceri nete
                     if (previous.CifraAfaceriNet != 0)
@@ -72,7 +72,7 @@ namespace Demo2_CapitalMarketStory.Services
                 }
             }
 
-            return sortedReports;
+            return SortedReports;
         }
     }
 }
