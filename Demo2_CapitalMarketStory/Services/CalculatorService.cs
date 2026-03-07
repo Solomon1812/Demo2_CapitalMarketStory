@@ -7,72 +7,57 @@ namespace Demo2_CapitalMarketStory.Services
 {
     public class CalculatorService : ICalculatorService
     {
-        public List<YearlyFinancialReport> CalculateKpiAsync(List<YearlyFinancialReport> reports)
+        public List<YearlyFinancialReport> CalculateKpi(List<YearlyFinancialReport> reports)
         {
-            // 1. Sortăm rapoartele crescător după an. 
-            // OBLIGATORIU pentru ca formulele de creștere YoY (Year-over-Year) să funcționeze corect!
+            // sortat dupa an (pentru a putea calcula ratele de crestere) 
             var SortedReports = reports.OrderBy(r => r.YearReported).ToList();
 
             for (int i = 0; i < SortedReports.Count; i++)
             {
                 var current = SortedReports[i];
 
-                // --- CALCULUL INDICATORILOR STATICI ---
+                // CALCUL INDICATORI
 
                 // Active Totale = Imobilizate + Circulante + Cheltuieli in avans 
                 decimal activeTotale = current.ActiveImobilizate + current.ActiveCirculante + current.CheltuieliAvans;
 
-                // 1. ROA (Rentabilitatea activelor)
-                // Evitam impartirea la zero (DivideByZeroException)
-                current.ROA = activeTotale != 0 ? (current.ProfitNet / activeTotale) : 0;
+                current.ROA = SafeDivide(current.ProfitNet, activeTotale);
 
-                // 2. ROE (Rentabilitatea capitalului propriu)
-                current.ROE = current.CapitaluriTotale != 0 ? (current.ProfitNet / current.CapitaluriTotale) : 0;
+                current.ROE = SafeDivide(current.ProfitNet, current.CapitaluriTotale);
 
-                // 3. Marja de profit net
-                current.MarjaProfit = current.CifraAfaceriNet != 0 ? (current.ProfitNet / current.CifraAfaceriNet) : 0;
+                current.MarjaProfit = SafeDivide(current.ProfitNet, current.CifraAfaceriNet);
 
+                // CALCUL RATE
 
-                // --- CALCULUL INDICATORILOR DINAMICI (Rate de creștere) ---
+                var previous = SortedReports[i - 1];
 
-                if (i == 0)
-                {
-                    // Suntem în primul an disponibil din fișier (ex: 2014). 
-                    // Nu avem date din 2013, deci nu putem calcula o creștere. Rata e 0.
-                    current.RataCrestereCifraAfaceriNet = 0;
-                    current.RataCrestereProfitNet = 0;
-                }
-                else
-                {
-                    // Luăm datele din anul precedent
-                    var previous = SortedReports[i - 1];
+                // Numarator: Diferenta dintre anul curent si anul precedent
+                // Numitor: Anul precedent
+                current.RataCrestereCifraAfaceriNet = SafeDivide(
+                    current.CifraAfaceriNet - previous.CifraAfaceriNet,
+                    previous.CifraAfaceriNet
+                );
 
-                    // 4. Rata de creștere a cifrei de afaceri nete
-                    if (previous.CifraAfaceriNet != 0)
-                    {
-                        current.RataCrestereCifraAfaceriNet = (current.CifraAfaceriNet - previous.CifraAfaceriNet) / previous.CifraAfaceriNet;
-                    }
-                    else
-                    {
-                        current.RataCrestereCifraAfaceriNet = 0;
-                    }
+                // Numarator: Diferenta profitului
+                // Numitor: Modulul profitului precedent
+                current.RataCrestereProfitNet = SafeDivide(
+                    current.ProfitNet - previous.ProfitNet,
+                    Math.Abs(previous.ProfitNet)
+                );
 
-                    // 5. Rata de creștere a profitului net
-                    if (previous.ProfitNet != 0)
-                    {
-                        // ATENȚIE: Folosim Math.Abs la numitor! 
-                        // Daca anul trecut compania a avut pierdere (-1000) si acum are profit (500), 
-                        // formula clasica ar da un procentaj gresit/negativ de crestere. Math.Abs repara asta.
-                        current.RataCrestereProfitNet = (current.ProfitNet - previous.ProfitNet) / Math.Abs(previous.ProfitNet);
-                    }
-                    else
-                    {
-                        current.RataCrestereProfitNet = 0;
-                    }
-                }
             }
 
             return SortedReports;
+        }
+
+        private decimal SafeDivide(decimal numarator, decimal numitor)
+        {
+            if (numitor == 0)
+            {
+                return 0; 
+            }
+
+            return numarator / numitor;
         }
     }
 }

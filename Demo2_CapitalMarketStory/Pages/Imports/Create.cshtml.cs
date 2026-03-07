@@ -17,7 +17,9 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
     public class CreateModel : PageModel
     {
         private readonly Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext _context;
-        private readonly ICalculatorService _calcService;
+
+        // !!serviciul de calcul al kpi-urilor impl in controller
+        private readonly ICalculatorService _calcService; 
 
         public CreateModel(Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext context, ICalculatorService calcService)
         {
@@ -78,7 +80,7 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             }
 
             // 5 serviciul de calcul
-            var CalculatedReport = _calcService.CalculateKpiAsync(RoughReport);
+            var CalculatedReport = _calcService.CalculateKpi(RoughReport);
 
             // 6 salvat dtb toate rapoartele financiare completate
             _context.YearlyFinancialReport.AddRange(CalculatedReport);
