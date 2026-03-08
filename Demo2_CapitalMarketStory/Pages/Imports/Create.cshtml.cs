@@ -47,47 +47,66 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             if (UserFile == null || UserFile.Length == 0)
             {
                 ModelState.AddModelError("", "Incarca un fisier valid");
+                ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
                 return Page();
             }
 
-            // 2 completat date import
-            Import.ImportDate = DateTime.Now;
-            Import.FileName = UserFile.FileName;
 
-            // save + importID
-            _context.Import.Add(Import);
-            await _context.SaveChangesAsync();
-
-
-            // 3 citit csv si salvat in tabela YearlyFinancialReport 
-            List<YearlyFinancialReport> RoughReport;
-
-            //https://joshclose.github.io/CsvHelper/examples/reading/get-class-records/
-            // fisier nesavlat, doar citit in memorie, convertit in lista de obiecte C#
-            using (var stream = UserFile.OpenReadStream())
-            using (var reader = new StreamReader(stream))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            try
             {
-                // randuri -> obiecte C#
-                RoughReport = csv.GetRecords<YearlyFinancialReport>().ToList();
-            }
+                // 2 completat date import
+                Import.ImportDate = DateTime.Now;
+                Import.FileName = UserFile.FileName;
 
-            // 4 date relationale
-            foreach (var raport in RoughReport)
+                // save + importID
+                _context.Import.Add(Import);
+                await _context.SaveChangesAsync();
+
+                // 3 citit csv si salvat in tabela YearlyFinancialReport 
+                List<YearlyFinancialReport> RoughReport;
+
+                //https://joshclose.github.io/CsvHelper/examples/reading/get-class-records/
+                // fisier nesavlat, doar citit in memorie, convertit in lista de obiecte C#
+                using (var stream = UserFile.OpenReadStream())
+                using (var reader = new StreamReader(stream))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    // randuri -> obiecte C#
+                    RoughReport = csv.GetRecords<YearlyFinancialReport>().ToList();
+                }
+
+                // 4 date relationale
+                foreach (var raport in RoughReport)
+                {
+                    // Legam fiecare rand din CSV de fisier importat
+                    raport.ImportId = Import.ImportId;
+                }
+
+                // 5 serviciul de calcul
+                var CalculatedReport = _calcService.CalculateKpi(RoughReport);
+
+                // 6 salvat dtb toate rapoartele financiare completate
+                _context.YearlyFinancialReport.AddRange(CalculatedReport);
+                await _context.SaveChangesAsync();
+
+                //dashboard grafice
+                 return RedirectToPage("/Dashboard/Index", new { companyId = Import.CompanyId });
+
+
+            }
+            catch (Exception ex)
             {
-                // Legam fiecare rand din CSV de fisier importat
-                raport.ImportId = Import.ImportId;
+                // DACA AI AJUNS AICI, E O EROARE, DAR SERVERUL NU CRAPA!
+                ModelState.AddModelError("", "Eroare Fatala: " + ex.Message);
+
+                // Ne asiguram ca nu pica HTML-ul
+                if (_context != null && _context.Company != null)
+                {
+                    ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
+                }
+
+                return Page();
             }
-
-            // 5 serviciul de calcul
-            var CalculatedReport = _calcService.CalculateKpi(RoughReport);
-
-            // 6 salvat dtb toate rapoartele financiare completate
-            _context.YearlyFinancialReport.AddRange(CalculatedReport);
-            await _context.SaveChangesAsync();
-
-            //dashboard grafice
-            return RedirectToPage("/Dashboard/Index", new { companyId = Import.CompanyId });
         }
     }
 }

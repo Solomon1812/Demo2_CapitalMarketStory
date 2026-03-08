@@ -29,21 +29,29 @@ namespace Demo2_CapitalMarketStory.Services
 
                 // CALCUL RATE
 
-                var previous = SortedReports[i - 1];
+                if (i > 0)
+                {
+                    var previous = SortedReports[i - 1];
 
-                // Numarator: Diferenta dintre anul curent si anul precedent
-                // Numitor: Anul precedent
-                current.RataCrestereCifraAfaceriNet = SafeDivide(
-                    current.CifraAfaceriNet - previous.CifraAfaceriNet,
-                    previous.CifraAfaceriNet
-                );
+                    // Numarator: Diferenta dintre anul curent si anul precedent
+                    // Numitor: Anul precedent
+                    current.RataCrestereCifraAfaceriNet = SafeDivide(
+                        current.CifraAfaceriNet - previous.CifraAfaceriNet,
+                        previous.CifraAfaceriNet
+                    );
 
-                // Numarator: Diferenta profitului
-                // Numitor: Modulul profitului precedent
-                current.RataCrestereProfitNet = SafeDivide(
-                    current.ProfitNet - previous.ProfitNet,
-                    Math.Abs(previous.ProfitNet)
-                );
+                    // Numarator: Diferenta profitului
+                    // Numitor: Modulul profitului precedent
+                    current.RataCrestereProfitNet = SafeDivide(
+                        current.ProfitNet - previous.ProfitNet,
+                        Math.Abs(previous.ProfitNet)
+                    );
+                }
+                else
+                {
+                    current.RataCrestereCifraAfaceriNet = 0;
+                    current.RataCrestereProfitNet = 0;
+                }
 
             }
 
