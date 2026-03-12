@@ -1,0 +1,43 @@
+﻿@page
+@model Demo2_CapitalMarketStory.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Evoluție Cifra de Afaceri: @Model.Company?.Name</h2>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            // Aici C# va printa direct: [2015, 2016, 2017, ...]
+            labels: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.YearReported))),
+
+            datasets: [{
+              label: 'Cifra de afaceri neta (RON)',
+
+              // Aici C# va printa direct: [4839538137, 5007251080, ...]
+              data: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.CifraAfaceriNet))),
+
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+    </script>
+}

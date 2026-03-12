@@ -67,12 +67,14 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
                 //https://joshclose.github.io/CsvHelper/examples/reading/get-class-records/
                 // fisier nesavlat, doar citit in memorie, convertit in lista de obiecte C#
+                
                 using (var stream = UserFile.OpenReadStream())
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     // randuri -> obiecte C#
                     RoughReport = csv.GetRecords<YearlyFinancialReport>().ToList();
+
                 }
 
                 // 4 date relationale
@@ -86,6 +88,7 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                 var CalculatedReport = _calcService.CalculateKpi(RoughReport);
 
                 // 6 salvat dtb toate rapoartele financiare completate
+                //https://www.codemag.com/Article/2201071/The-Secrets-of-Manipulating-CSV-Files
                 _context.YearlyFinancialReport.AddRange(CalculatedReport);
                 await _context.SaveChangesAsync();
 
@@ -96,10 +99,8 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             }
             catch (Exception ex)
             {
-                // DACA AI AJUNS AICI, E O EROARE, DAR SERVERUL NU CRAPA!
-                ModelState.AddModelError("", "Eroare Fatala: " + ex.Message);
+                ModelState.AddModelError("", "Eroare" + ex.Message);
 
-                // Ne asiguram ca nu pica HTML-ul
                 if (_context != null && _context.Company != null)
                 {
                     ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
