@@ -50,8 +50,18 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             }
 
             var import = await _context.Import.FindAsync(id);
+
             if (import != null)
             {
+                var rapoarteCopii = _context.YearlyFinancialReport
+                    .Where(r => r.ImportId == id)
+                    .ToList();
+
+                if (rapoarteCopii.Any())
+                {
+                    _context.YearlyFinancialReport.RemoveRange(rapoarteCopii);
+                }
+
                 Import = import;
                 _context.Import.Remove(Import);
                 await _context.SaveChangesAsync();

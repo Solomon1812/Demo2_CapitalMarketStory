@@ -6,6 +6,7 @@ using Demo2_CapitalMarketStory.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -89,11 +90,23 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
                 // 6 salvat dtb toate rapoartele financiare completate
                 //https://www.codemag.com/Article/2201071/The-Secrets-of-Manipulating-CSV-Files
+
+                // UPSERT 
+                var OldReport = _context.YearlyFinancialReport
+                    .Include(r => r.Import)
+                    .Where(r => r.Import.CompanyId == Import.CompanyId)
+                    .ToList();
+
+                if (OldReport.Any())
+                {
+                    _context.YearlyFinancialReport.RemoveRange(OldReport);
+                }
+
                 _context.YearlyFinancialReport.AddRange(CalculatedReport);
                 await _context.SaveChangesAsync();
 
                 //dashboard grafice
-                 return RedirectToPage("/Dashboard/Index", new { companyId = Import.CompanyId });
+                 return RedirectToPage("/Dashboard", new { companyId = Import.CompanyId });
 
 
             }

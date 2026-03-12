@@ -4,11 +4,40 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h2>Evoluție Cifra de Afaceri: @Model.Company?.Name</h2>
+<h2>Evolutia companiei: @Model.Company?.Name</h2>
 
 <div>
     <canvas id="myChart"></canvas>
 </div>
+
+<br />
+<h3>Indicatori de performanta anuali</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Anul</th>
+            <th>ROA</th>
+            <th>ROE</th>
+            <th>Marja Profitului</th>
+            <th>Creștere CA</th>
+            <th>Creștere Profit Net</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var report in Model.FinancialReports)
+        {
+            <tr>
+                <td>@report.YearReported</td>
+                <td>@report.ROA.ToString("P2")</td>
+                <td>@report.ROE.ToString("P2")</td>
+                <td>@report.MarjaProfit.ToString("P2")</td> @* convert procent *@
+                <td>@report.RataCrestereCifraAfaceriNet.ToString("P2")</td>
+                <td>@report.RataCrestereProfitNet.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,19 +48,15 @@
         new Chart(ctx, {
           type: 'bar',
           data: {
-            // Aici C# va printa direct: [2015, 2016, 2017, ...]
             labels: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.YearReported))),
-
             datasets: [{
               label: 'Cifra de afaceri neta (RON)',
-
-              // Aici C# va printa direct: [4839538137, 5007251080, ...]
               data: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.CifraAfaceriNet))),
-
               borderWidth: 1
             }]
           },
           options: {
+            responsive: true,
             scales: {
               y: {
                 beginAtZero: true
