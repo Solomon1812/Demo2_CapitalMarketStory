@@ -68,6 +68,7 @@
                 @Html.DisplayFor(modelItem => item.Website)
             </td>
             <td>
+                <a asp-page="/Imports/Create" asp-route-id="@item.CompanyId">Add import file</a> |
                 <a asp-page="./Edit" asp-route-id="@item.CompanyId">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.CompanyId">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.CompanyId">Delete</a>

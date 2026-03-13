@@ -52,26 +52,29 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
             var company = await _context.Company.FindAsync(id);
             if (company != null)
             {
-                // 2. Gasim "Parintii" (Toate importurile facute pentru aceasta companie)
-                var imports = _context.Import.Where(i => i.CompanyId == id).ToList();
+                var imports = _context.Import
+                    .Where(i => i.CompanyId == id)
+                    .ToList();
 
-                // Extragem doar ID-urile importurilor ca sa putem cauta copiii
-                var importIds = imports.Select(i => i.ImportId).ToList();
+                var importIds = imports
+                    .Select(i => i.ImportId)
+                    .ToList();
 
-                // 3. Gasim "Copiii" (Toate rapoartele financiare legate de aceste importuri)
-                var rapoarte = _context.YearlyFinancialReport
+                var rapoarteCopii = _context.YearlyFinancialReport
                     .Where(r => importIds.Contains(r.ImportId))
                     .ToList();
 
-                // 4. Marea Curatenie (DE JOS IN SUS!)
-                if (rapoarte.Any())
+                // sters
+                if (rapoarteCopii.Any())
                 {
-                    _context.YearlyFinancialReport.RemoveRange(rapoarte); // Stergem copiii
+                    _context.YearlyFinancialReport
+                        .RemoveRange(rapoarteCopii); 
                 }
 
                 if (imports.Any())
                 {
-                    _context.Import.RemoveRange(imports); // Stergem parintii
+                    _context.Import
+                        .RemoveRange(imports); 
                 }
 
                 Company = company;

@@ -24,7 +24,9 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
         public async Task OnGetAsync()
         {
             Import = await _context.Import
-                .Include(i => i.Company).ToListAsync();
+                .Include(i => i.Company)
+                .OrderByDescending(i => i.ImportDate)
+                .ToListAsync();
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Demo2_CapitalMarketStory.Models
 
         [Display(Name = "Upload date")]
         [DataType(DataType.Date)]
-        [Range(typeof(DateTime), "2014-01-01", "2026-12-31", ErrorMessage = "Date out of bounds")]
         [Required()]
         public DateTime ImportDate { get; set; } = DateTime.Now;
 
@@ -27,7 +26,7 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         //foreign key and navigation property
-        public int? CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public Company? Company { get; set; }
 
 

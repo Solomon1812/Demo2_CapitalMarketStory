@@ -19,7 +19,7 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
     {
         private readonly Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext _context;
 
-        // !!serviciul de calcul al kpi-urilor impl in controller
+        // !!serviciul de calcul al kpi-urilor 
         private readonly ICalculatorService _calcService; 
 
         public CreateModel(Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext context, ICalculatorService calcService)
@@ -35,10 +35,16 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
         [BindProperty]
         public IFormFile UserFile { get; set; }
 
-        public IActionResult OnGet(int? companyId) //adaugat int? companyId,  inainte gol
+        public IActionResult OnGet(int? companyId) 
         {
-            ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
+            if (companyId == null)
+            {
+                return RedirectToPage("/Companies/Index");
+            }
+
+            Import = new Import { CompanyId = companyId.Value }; 
             return Page();
+
         }
 
 
@@ -48,14 +54,13 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             if (UserFile == null || UserFile.Length == 0)
             {
                 ModelState.AddModelError("", "Incarca un fisier valid");
-                ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
                 return Page();
             }
 
 
             try
             {
-                // 2 completat date import
+                // 2 completat date import - READONLY
                 Import.ImportDate = DateTime.Now;
                 Import.FileName = UserFile.FileName;
 
@@ -113,11 +118,6 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Eroare" + ex.Message);
-
-                if (_context != null && _context.Company != null)
-                {
-                    ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "Name");
-                }
 
                 return Page();
             }

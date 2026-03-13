@@ -27,7 +27,6 @@ namespace Demo2_CapitalMarketStory.Pages
                 return RedirectToPage("/Companies/Create");
             }
 
-            // Incarcam in variabila Company
             Company = await _context.Company
                 .FirstOrDefaultAsync(m => m.CompanyId == companyId);
 

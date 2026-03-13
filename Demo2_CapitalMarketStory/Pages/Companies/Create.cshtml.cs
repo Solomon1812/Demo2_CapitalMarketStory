@@ -39,7 +39,7 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
             _context.Company.Add(Company);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/Imports/Create"); 
+            return RedirectToPage("/Imports/Create", new { companyId = Company.CompanyId });
         }
     }
 }

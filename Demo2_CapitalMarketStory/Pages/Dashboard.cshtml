@@ -29,10 +29,10 @@
         {
             <tr>
                 <td>@report.YearReported</td>
-                <td>@report.ROA.ToString("P2")</td>
+                <td>@report.ROA.ToString("P2")</td> @* sau <td>@Html.DisplayFor(modelItem => report.ROA)</td> annotation model *@
                 <td>@report.ROE.ToString("P2")</td>
-                <td>@report.MarjaProfit.ToString("P2")</td> @* convert procent *@
-                <td>@report.RataCrestereCifraAfaceriNet.ToString("P2")</td>
+                <td>@report.MarjaProfit.ToString("P2")</td>
+                <td>@report.RataCrestereCifraAfaceriNet.ToString("P2")</td> 
                 <td>@report.RataCrestereProfitNet.ToString("P2")</td>
             </tr>
         }

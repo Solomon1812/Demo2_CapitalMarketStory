@@ -30,13 +30,13 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                 return NotFound();
             }
 
-            var import =  await _context.Import.FirstOrDefaultAsync(m => m.ImportId == id);
+            var import = await _context.Import.FirstOrDefaultAsync(m => m.ImportId == id);
             if (import == null)
             {
                 return NotFound();
             }
             Import = import;
-           ViewData["CompanyId"] = new SelectList(_context.Company, "CompanyId", "HeadquartersAddress");
+
             return Page();
         }
 
