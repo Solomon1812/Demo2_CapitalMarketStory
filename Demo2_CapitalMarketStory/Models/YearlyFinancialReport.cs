@@ -22,6 +22,9 @@ namespace Demo2_CapitalMarketStory.Models
         [Required()]
         public int YearReported { get; set; }
 
+        // display anii lista
+        //public string Timeline => $"{LastName}, {FirstName}";
+
 
         [Name("Active Imobilizate - Total")]
         [Display(Name = "Active imobilizate")]
@@ -186,6 +189,7 @@ namespace Demo2_CapitalMarketStory.Models
         public int ImportId { get; set; }
         [Ignore]
         public Import? Import { get; set; } 
+
 
 
     }

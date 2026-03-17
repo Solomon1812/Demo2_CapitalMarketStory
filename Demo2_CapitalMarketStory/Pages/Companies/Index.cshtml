@@ -10,12 +10,28 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find company by name or CUI(Activity type):
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Company[0].Name)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CompanySort">
+                    @Html.DisplayNameFor(model => model.Company[0].Name)
+                </a>
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Company[0].CUI)
             </th>
@@ -41,39 +57,41 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Company) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CUI)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FoundedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CAEN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeadquartersAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Website)
-            </td>
-            <td>
-                <a asp-page="/Imports/Create" asp-route-id="@item.CompanyId">Add import file</a> |
-                <a asp-page="./Edit" asp-route-id="@item.CompanyId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.CompanyId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CompanyId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in @Model.Company)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CUI)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoundedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CAEN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeadquartersAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website)
+                </td>
+                <td>
+                    <a asp-page="/Imports/Create" asp-route-companyId="@item.CompanyId">Add import file</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.CompanyId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CompanyId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CompanyId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

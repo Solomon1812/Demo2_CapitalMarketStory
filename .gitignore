@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Fisiere si foldere licenta (ignorate)
+*.docx
+*.xlsx
+*.pdf
+*.txt
+altele/
+# dataGovRo/
+moodle/
