@@ -32,8 +32,27 @@
                 <td>@Html.DisplayFor(modelItem => report.ROA)</td> @* sau <td>@Html.DisplayFor(modelItem => report.ROA)</td> annotation model *@
                 <td>@report.ROE.ToString("P2")</td>
                 <td>@report.MarjaProfit.ToString("P2")</td>
-                <td>@report.RataCrestereCifraAfaceriNet.ToString("P2")</td> 
-                <td>@report.RataCrestereProfitNet.ToString("P2")</td>
+                <td>
+                    @if (report.RataCrestereCifraAfaceriNet == 0)
+                    {
+                        <span>N/A</span>
+                    }
+                    else
+                    {
+                        @report.RataCrestereCifraAfaceriNet.ToString("P2")
+                    }
+                </td>
+
+                <td>
+                    @if (report.RataCrestereProfitNet == 0)
+                    {
+                        @("N/A")
+                    }
+                    else
+                    {
+                        @report.RataCrestereProfitNet.ToString("P2")
+                    }
+                </td>
             </tr>
         }
     </tbody>

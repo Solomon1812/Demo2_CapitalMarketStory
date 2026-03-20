@@ -25,7 +25,7 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
         public string? CurrentFilter { get; set; }
 
 
-        public async Task OnGetAsync(string sortOrder, string? searchString)
+        public async Task OnGetAsync(string? sortOrder, string? searchString)
         {
             CompanySort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -51,7 +51,9 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
                     break;
             }
 
-            Company = await companiesIQ.AsNoTracking().ToListAsync();
+            Company = await companiesIQ
+                .AsNoTracking()
+                .ToListAsync();
 
         }
 

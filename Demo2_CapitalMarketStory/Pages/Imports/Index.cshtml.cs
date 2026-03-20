@@ -26,15 +26,11 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
         public async Task OnGetAsync(string? searchCompany, DateTime? searchDate)
         {
-            Import = await _context.Import
-                .Include(i => i.Company)
-                .OrderByDescending(i => i.ImportDate)
-                .ToListAsync();
-
             CurrentCompanyFilter = searchCompany;
             CurrentDateFilter = searchDate;
 
-            IQueryable<Import> importsIQ = _context.Import.Include(i => i.Company);
+            IQueryable<Import> importsIQ = _context.Import
+                .Include(i => i.Company);
 
             if (!String.IsNullOrEmpty(searchCompany))
             {

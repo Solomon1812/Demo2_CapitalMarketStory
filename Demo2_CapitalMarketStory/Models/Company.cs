@@ -16,7 +16,7 @@ namespace Demo2_CapitalMarketStory.Models
         public string Name { get; set; } = string.Empty;
 
 
-        [Display(Name = "Company's tax identification numer")]
+        [Display(Name = "Company's tax identification number")]
         [Required()]
         public int CUI { get; set; }
 
