@@ -21,13 +21,11 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
 
         public IList<Company> Company { get;set; } = default!;
 
-        //pentru search
         public string CompanySort { get; set; }
+        public string? CurrentFilter { get; set; }
 
-        public string CurrentFilter { get; set; }
 
-
-        public async Task OnGetAsync(string sortOrder, string searchString)
+        public async Task OnGetAsync(string sortOrder, string? searchString)
         {
             CompanySort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 

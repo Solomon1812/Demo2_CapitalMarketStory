@@ -10,6 +10,22 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form asp-page="./Index" method="get">
+    <div class="form-actions">
+        <p>
+            Search nume companie:
+            <input type="text" name="searchCompany" value="@Model.CurrentCompanyFilter" />
+            </br>
+            Search data incarcarii:
+            <input type="date" name="searchDate" value="@(Model.CurrentDateFilter?.ToString("yyyy-MM-dd"))" />
+            </br>
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full list</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>

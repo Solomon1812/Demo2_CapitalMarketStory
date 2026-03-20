@@ -31,9 +31,11 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
         [BindProperty]
         public Import Import { get; set; } = default!;
 
-        //fisierul incarcat
         [BindProperty]
         public IFormFile UserFile { get; set; }
+
+        [BindProperty]
+        public bool ConfirmOverwrite { get; set; } = false;
 
         public IActionResult OnGet(int? companyId) 
         {
@@ -50,74 +52,73 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
         public async Task<IActionResult> OnPostAsync()
         {
-            //1 validare fisier incarcat
             if (UserFile == null || UserFile.Length == 0)
             {
                 ModelState.AddModelError("", "Incarca un fisier valid");
                 return Page();
             }
 
-
             try
             {
-                // 2 completat date import - READONLY
                 Import.ImportDate = DateTime.Now;
                 Import.FileName = UserFile.FileName;
 
-                // save + importID
-                _context.Import.Add(Import);
-                await _context.SaveChangesAsync();
 
-                // 3 citit csv si salvat in tabela YearlyFinancialReport 
                 List<YearlyFinancialReport> RoughReport;
 
-                //https://joshclose.github.io/CsvHelper/examples/reading/get-class-records/
-                // fisier nesavlat, doar citit in memorie, convertit in lista de obiecte C#
                 
                 using (var stream = UserFile.OpenReadStream())
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    // randuri -> obiecte C#
                     RoughReport = csv.GetRecords<YearlyFinancialReport>().ToList();
 
                 }
 
-                // 4 date relationale
-                foreach (var raport in RoughReport)
-                {
-                    // Legam fiecare rand din CSV de fisier importat
-                    raport.ImportId = Import.ImportId;
-                }
 
-                // 5 serviciul de calcul
                 var CalculatedReport = _calcService.CalculateKpi(RoughReport);
 
-                // 6 salvat dtb toate rapoartele financiare completate
-                //https://www.codemag.com/Article/2201071/The-Secrets-of-Manipulating-CSV-Files
+                Import.StartYear = CalculatedReport.Min(r => r.YearReported);
+                Import.EndYear = CalculatedReport.Max(r => r.YearReported);
 
-                // UPSERT 
+                var IncomingYears = CalculatedReport.Select(r => r.YearReported).ToList();
+
+
                 var OldReport = _context.YearlyFinancialReport
                     .Include(r => r.Import)
                     .Where(r => r.Import.CompanyId == Import.CompanyId)
                     .ToList();
 
-                if (OldReport.Any())
+
+                var OverlappingReports = OldReport.Where(r => IncomingYears.Contains(r.YearReported)).ToList();
+
+                if (OverlappingReports.Any())
                 {
-                    _context.YearlyFinancialReport.RemoveRange(OldReport);
+                    if (ConfirmOverwrite == true)
+                    {
+                        _context.YearlyFinancialReport.RemoveRange(OverlappingReports);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Fisierul contine ani care exista deja. Bifeaza casuta pentru a suprascrie anii existenti.");
+                        return Page();
+                    }
                 }
+
+                Import.Reports = CalculatedReport;
+                _context.Import.Add(Import);
 
                 _context.YearlyFinancialReport.AddRange(CalculatedReport);
                 await _context.SaveChangesAsync();
 
-                //dashboard grafice
-                 return RedirectToPage("/Dashboard", new { companyId = Import.CompanyId });
+                return RedirectToPage("/Dashboard", new { companyId = Import.CompanyId });
 
 
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Eroare" + ex.Message);
+                ModelState.AddModelError("", "Eroare: " + ex.Message);
 
                 return Page();
             }

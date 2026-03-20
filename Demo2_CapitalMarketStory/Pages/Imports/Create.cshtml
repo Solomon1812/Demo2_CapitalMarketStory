@@ -22,17 +22,17 @@
                 <span asp-validation-for="Import.Description" class="text-danger"></span>
             </div>
 
-            
-            <div class="form-group">
-                <label asp-for="Import.Description" class="control-label"></label>
-                <input asp-for="Import.Description" class="form-control" />
-                <span asp-validation-for="Import.Description" class="text-danger"></span>
-            </div>
-
 
             <div class="mb-3">
                 <label class="form-label">Alege fișierul .csv</label>
                 <input type="file" name="UserFile" class="form-control" accept=".csv" />
+            </div>
+
+            <div class="form-group form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ConfirmOverwrite" />
+                    Sunt de acord cu suprascrierea datelor vechi (daca acestea exista).
+                </label>
             </div>
 
             <button type="submit" class="btn btn-success">Procesează importul</button>

@@ -6,7 +6,7 @@ namespace Demo2_CapitalMarketStory.Models
 {
     public class Import
     {
-        public int ImportId { get; set; } //primary key autoincrement
+        public int ImportId { get; set; } 
 
 
         [Display(Name = "Upload date")]
@@ -22,10 +22,12 @@ namespace Demo2_CapitalMarketStory.Models
 
         [Display(Name = "File description")]
         [StringLength(250, MinimumLength = 0)]
-        public string Description { get; set; } 
+        public string Description { get; set; }
+
+        public int StartYear { get; set; }
+        public int EndYear { get; set; }
 
 
-        //foreign key and navigation property
         public int CompanyId { get; set; }
         public Company? Company { get; set; }
 

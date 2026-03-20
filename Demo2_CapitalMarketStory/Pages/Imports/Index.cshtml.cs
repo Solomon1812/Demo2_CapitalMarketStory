@@ -21,11 +21,35 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
         public IList<Import> Import { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public string? CurrentCompanyFilter { get; set; }
+        public DateTime? CurrentDateFilter { get; set; }
+
+        public async Task OnGetAsync(string? searchCompany, DateTime? searchDate)
         {
             Import = await _context.Import
                 .Include(i => i.Company)
                 .OrderByDescending(i => i.ImportDate)
+                .ToListAsync();
+
+            CurrentCompanyFilter = searchCompany;
+            CurrentDateFilter = searchDate;
+
+            IQueryable<Import> importsIQ = _context.Import.Include(i => i.Company);
+
+            if (!String.IsNullOrEmpty(searchCompany))
+            {
+                importsIQ = importsIQ.Where(i => i.Company.Name.Contains(searchCompany));
+            }
+
+            if (searchDate.HasValue)
+            {
+                importsIQ = importsIQ.Where(i => i.ImportDate.Date == searchDate.Value.Date);
+            }
+
+            importsIQ = importsIQ.OrderByDescending(i => i.ImportDate);
+
+            Import = await importsIQ
+                .AsNoTracking()
                 .ToListAsync();
         }
     }
