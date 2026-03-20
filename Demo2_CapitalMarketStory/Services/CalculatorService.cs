@@ -9,8 +9,9 @@ namespace Demo2_CapitalMarketStory.Services
     {
         public List<YearlyFinancialReport> CalculateKpi(List<YearlyFinancialReport> reports)
         {
-            // sortat dupa an (pentru a putea calcula ratele de crestere) 
-            var SortedReports = reports.OrderBy(r => r.YearReported).ToList();
+            var SortedReports = reports
+                .OrderBy(r => r.YearReported)
+                .ToList();
 
             for (int i = 0; i < SortedReports.Count; i++)
             {
@@ -62,7 +63,6 @@ namespace Demo2_CapitalMarketStory.Services
             {
                 return 0;
             }
-
             return numarator / numitor;
         }
     }
