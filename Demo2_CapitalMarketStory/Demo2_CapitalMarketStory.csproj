@@ -16,8 +16,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
-  <ItemGroup Label="MLForecastingModel">
-    <None Include="MLForecastingModel.mlnet">
+  <ItemGroup Label="MLProfitNetModel">
+    <None Include="MLProfitNetModel.mlnet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Label="MLCifraAfaceriModel">
+    <None Include="MLCifraAfaceriModel.mlnet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

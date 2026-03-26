@@ -1,4 +1,4 @@
-using Demo2_CapitalMarketStory.Models;
+﻿using Demo2_CapitalMarketStory.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +19,7 @@ namespace Demo2_CapitalMarketStory.Pages
 
         public Company Company { get; set; }
         public List<YearlyFinancialReport> FinancialReports { get; set; }
+        public string CompanyStatus { get; private set; }
 
         public async Task<IActionResult> OnGetAsync(int? companyId)
         {
@@ -40,6 +41,22 @@ namespace Demo2_CapitalMarketStory.Pages
                 .Where(r => r.Import.CompanyId == companyId)
                 .OrderBy(r => r.YearReported)
                 .ToListAsync();
+
+
+            if (FinancialReports != null && FinancialReports.Any())
+            {
+                var ultimulRaport = FinancialReports.Last();
+
+                decimal activeTotale = ultimulRaport.ActiveImobilizate + ultimulRaport.ActiveCirculante + ultimulRaport.CheltuieliAvans;
+
+                if (ultimulRaport.ROA < 0.05m && ultimulRaport.Datorii > activeTotale)
+                    CompanyStatus = "Risc de faliment";
+                else if (ultimulRaport.ROA >= 0.05m && ultimulRaport.ROA < 0.15m)
+                    CompanyStatus = "Companie stabila ";
+                else
+                    CompanyStatus = "Performanta excelenta ";
+            }
+
 
             return Page();
         }

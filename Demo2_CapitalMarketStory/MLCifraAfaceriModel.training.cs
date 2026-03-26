@@ -9,7 +9,7 @@ using Microsoft.ML;
 
 namespace Demo2_CapitalMarketStory
 {
-    public partial class MLForecastingModel
+    public partial class MLCifraAfaceriModel
     {
         public const string RetrainFilePath =  @"C:\Users\Solomon\Desktop\10ani fara caen\istoric_financiar_PORSCHE_CUI9997007.csv";
         public const char RetrainSeparatorChar = ',';
@@ -87,7 +87,7 @@ namespace Demo2_CapitalMarketStory
         public static IEstimator<ITransformer> BuildPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations
-            var pipeline = mlContext.Forecasting.ForecastBySsa(windowSize:2,seriesLength:10,trainSize:10,horizon:2,outputColumnName:@"Profitul Net",inputColumnName:@"Profitul Net",confidenceLowerBoundColumn:@"Profitul Net_LB",confidenceUpperBoundColumn:@"Profitul Net_UB");
+            var pipeline = mlContext.Forecasting.ForecastBySsa(windowSize:2,seriesLength:10,trainSize:10,horizon:10,outputColumnName:@"Cifra de afaceri neta",inputColumnName:@"Cifra de afaceri neta",confidenceLowerBoundColumn:@"Cifra de afaceri neta_LB",confidenceUpperBoundColumn:@"Cifra de afaceri neta_UB");
 
             return pipeline;
         }

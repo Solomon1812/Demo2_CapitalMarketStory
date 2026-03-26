@@ -10,42 +10,42 @@ using Microsoft.ML.Transforms.TimeSeries;
 
 namespace Demo2_CapitalMarketStory
 {
-    public partial class MLForecastingModel
+    public partial class MLCifraAfaceriModel
     {
         /// <summary>
-        /// model input class for MLForecastingModel.
+        /// model input class for MLCifraAfaceriModel.
         /// </summary>
         #region model input class
         public class ModelInput
         {
-            [LoadColumn(19)]
-            [ColumnName(@"Profitul Net")]
-            public float Profitul_Net { get; set; }
+            [LoadColumn(14)]
+            [ColumnName(@"Cifra de afaceri neta")]
+            public float Cifra_de_afaceri_neta { get; set; }
 
         }
 
         #endregion
 
         /// <summary>
-        /// model output class for MLForecastingModel.
+        /// model output class for MLCifraAfaceriModel.
         /// </summary>
         #region model output class
         public class ModelOutput
         {
-            [ColumnName(@"Profitul Net")]
-            public float[] Profitul_Net { get; set; }
+            [ColumnName(@"Cifra de afaceri neta")]
+            public float[] Cifra_de_afaceri_neta { get; set; }
 
-            [ColumnName(@"Profitul Net_LB")]
-            public float[] Profitul_Net_LB { get; set; }
+            [ColumnName(@"Cifra de afaceri neta_LB")]
+            public float[] Cifra_de_afaceri_neta_LB { get; set; }
 
-            [ColumnName(@"Profitul Net_UB")]
-            public float[] Profitul_Net_UB { get; set; }
+            [ColumnName(@"Cifra de afaceri neta_UB")]
+            public float[] Cifra_de_afaceri_neta_UB { get; set; }
 
         }
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath(@"C:\Users\Solomon\Documents\Materiale facultate anul 3 sem 2\LICENTA\Demo2_CapitalMarketStory\MLForecastingModel.mlnet");
+        private static string MLNetModelPath = Path.GetFullPath(@"C:\Users\Solomon\Documents\Materiale facultate anul 3 sem 2\LICENTA\Demo2_CapitalMarketStory\MLCifraAfaceriModel.mlnet");
 
         public static readonly Lazy<TimeSeriesPredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<TimeSeriesPredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 

@@ -66,7 +66,7 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
                 List<YearlyFinancialReport> RoughReport;
 
-                
+
                 using (var stream = UserFile.OpenReadStream())
                 using (var reader = new StreamReader(stream))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -74,14 +74,15 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                     RoughReport = csv.GetRecords<YearlyFinancialReport>().ToList();
 
                 }
+                Import.StartYear = RoughReport.Min(r => r.YearReported);
+                Import.EndYear = RoughReport.Max(r => r.YearReported);
 
 
                 var CalculatedReport = _calcService.CalculateKpi(RoughReport);
 
-                Import.StartYear = CalculatedReport.Min(r => r.YearReported);
-                Import.EndYear = CalculatedReport.Max(r => r.YearReported);
-
-                var IncomingYears = CalculatedReport.Select(r => r.YearReported).ToList();
+                var IncomingYears = CalculatedReport
+                    .Select(r => r.YearReported)
+                    .ToList();
 
 
                 var OldReport = _context.YearlyFinancialReport

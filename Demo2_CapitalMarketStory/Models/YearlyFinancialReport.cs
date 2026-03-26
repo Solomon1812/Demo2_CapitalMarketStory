@@ -18,12 +18,8 @@ namespace Demo2_CapitalMarketStory.Models
 
         [Name("An")] //legatura cu csv numele coloanei
         [Display(Name = "Year of the report")]
-        //[Range(2014, 2024, ErrorMessage = "Year out of bounds")]
         [Required()]
         public int YearReported { get; set; }
-
-        // display anii lista
-        //public string Timeline => $"{LastName}, {FirstName}";
 
 
         [Name("Active Imobilizate - Total")]

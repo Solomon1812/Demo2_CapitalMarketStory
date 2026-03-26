@@ -54,6 +54,22 @@ namespace Demo2_CapitalMarketStory.Services
             }
 
 
+            var Prediction1 = MLProfitNetModel.Predict();
+            var Prediction2 = MLCifraAfaceriModel.Predict();
+
+            decimal PredictedProfit = (decimal)Prediction1.Profitul_Net[0];
+            decimal PredictedCA = (decimal)Prediction2.Cifra_de_afaceri_neta[0];
+
+
+            var NextReport = new YearlyFinancialReport
+            {
+                YearReported = SortedReports.Last().YearReported + 1,
+                ProfitNet = PredictedProfit,
+                CifraAfaceriNet = PredictedCA
+            };
+
+            SortedReports.Add(NextReport);
+
             return SortedReports;
         }
 

@@ -204,14 +204,34 @@
         "Type": "Trial",
         "TrainerName": "ForecastBySsa",
         "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.125,
+        "RuntimeInSeconds": 0.157,
         "Parameter": {
           "_SCHEMA_": "e0",
           "e0": {
             "WindowSize": 2,
             "SeriesLength": 10,
             "TrainSize": 10,
-            "Horizon": 2,
+            "Horizon": 10,
+            "OutputColumnName": "Profitul Net",
+            "InputColumnName": "Profitul Net",
+            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
+            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 94728803.166803852,
+        "RuntimeInSeconds": 0.004,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2,
+            "SeriesLength": 2356,
+            "TrainSize": 10,
+            "Horizon": 10,
             "OutputColumnName": "Profitul Net",
             "InputColumnName": "Profitul Net",
             "ConfidenceLowerBoundColumn": "Profitul Net_LB",
@@ -229,9 +249,29 @@
           "_SCHEMA_": "e0",
           "e0": {
             "WindowSize": 2,
-            "SeriesLength": 1284,
+            "SeriesLength": 1881,
             "TrainSize": 10,
-            "Horizon": 2,
+            "Horizon": 10,
+            "OutputColumnName": "Profitul Net",
+            "InputColumnName": "Profitul Net",
+            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
+            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "ForecastBySsa",
+        "Score": 94728803.166803852,
+        "RuntimeInSeconds": 0.005,
+        "Parameter": {
+          "_SCHEMA_": "e0",
+          "e0": {
+            "WindowSize": 2,
+            "SeriesLength": 418,
+            "TrainSize": 10,
+            "Horizon": 10,
             "OutputColumnName": "Profitul Net",
             "InputColumnName": "Profitul Net",
             "ConfidenceLowerBoundColumn": "Profitul Net_LB",
@@ -249,49 +289,9 @@
           "_SCHEMA_": "e0",
           "e0": {
             "WindowSize": 2,
-            "SeriesLength": 296,
+            "SeriesLength": 583,
             "TrainSize": 10,
-            "Horizon": 2,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
-          }
-        }
-      },
-      {
-        "Version": 1,
-        "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.003,
-        "Parameter": {
-          "_SCHEMA_": "e0",
-          "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 66,
-            "TrainSize": 10,
-            "Horizon": 2,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
-          }
-        }
-      },
-      {
-        "Version": 1,
-        "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.003,
-        "Parameter": {
-          "_SCHEMA_": "e0",
-          "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 34,
-            "TrainSize": 10,
-            "Horizon": 2,
+            "Horizon": 10,
             "OutputColumnName": "Profitul Net",
             "InputColumnName": "Profitul Net",
             "ConfidenceLowerBoundColumn": "Profitul Net_LB",
@@ -305,7 +305,7 @@
     },
     "Schema": "e0",
     "MetricName": "RMSE",
-    "ModelFilePath": "C:\\Users\\Solomon\\Documents\\Materiale facultate anul 3 sem 2\\LICENTA\\Demo2_CapitalMarketStory\\MLForecastingModel.mlnet"
+    "ModelFilePath": "C:\\Users\\Solomon\\Documents\\Materiale facultate anul 3 sem 2\\LICENTA\\Demo2_CapitalMarketStory\\MLProfitNetModel.mlnet"
   },
   "Type": "TrainingConfig",
   "Version": 5,
@@ -316,7 +316,7 @@
     "Type": "ForecastingTrainingOption",
     "TrainingTime": 20,
     "UseCrossValidation": false,
-    "Horizon": 2,
+    "Horizon": 10,
     "TimeColumn": "An",
     "LabelColumn": "Profitul Net",
     "UseDefaultIndex": false,

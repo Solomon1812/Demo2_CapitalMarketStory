@@ -5,6 +5,7 @@
 }
 
 <h2>Evolutia companiei: @Model.Company?.Name</h2>
+<h3 style="color: #555;">Status curent (pe baza ultimului an): @Model.CompanyStatus</h3>
 
 <div>
     <canvas id="myChart"></canvas>
@@ -27,6 +28,10 @@
     <tbody>
         @foreach (var report in Model.FinancialReports)
         {
+@*             if (report.YearReported > ultimulAnReal)
+            {
+                continue;
+            } *@
             <tr>
                 <td>@report.YearReported</td>
                 <td>@Html.DisplayFor(modelItem => report.ROA)</td> @* sau <td>@Html.DisplayFor(modelItem => report.ROA)</td> annotation model *@
