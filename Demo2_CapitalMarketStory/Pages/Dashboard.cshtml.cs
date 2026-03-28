@@ -21,6 +21,7 @@ namespace Demo2_CapitalMarketStory.Pages
         public List<YearlyFinancialReport> FinancialReports { get; set; }
         public string CompanyStatus { get; private set; }
 
+
         public async Task<IActionResult> OnGetAsync(int? companyId)
         {
             if (companyId == null)
@@ -43,18 +44,40 @@ namespace Demo2_CapitalMarketStory.Pages
                 .ToListAsync();
 
 
-            if (FinancialReports != null && FinancialReports.Any())
+
+            var lastReport = FinancialReports
+                .LastOrDefault(r => r.ROA != 0);
+
+            if (lastReport != null)
             {
-                var ultimulRaport = FinancialReports.Last();
+                int scor = 0;
 
-                decimal activeTotale = ultimulRaport.ActiveImobilizate + ultimulRaport.ActiveCirculante + ultimulRaport.CheltuieliAvans;
+                if (lastReport.ROA >= 0.05m) scor++;
 
-                if (ultimulRaport.ROA < 0.05m && ultimulRaport.Datorii > activeTotale)
-                    CompanyStatus = "Risc de faliment";
-                else if (ultimulRaport.ROA >= 0.05m && ultimulRaport.ROA < 0.15m)
-                    CompanyStatus = "Companie stabila ";
+                if (lastReport.ROE >= 0.15m) scor++;
+
+                if (lastReport.MarjaProfit >= 0.01m) scor++;
+
+                if (lastReport.RataCrestereCifraAfaceriNet > 0) scor++;
+
+                if (lastReport.RataCrestereProfitNet > 0) scor++;
+
+                if (scor >= 4)
+                {
+                    CompanyStatus = "Performanta excelenta";
+                }
+                else if (scor >= 2)
+                {
+                    CompanyStatus = "Performanta stabila ";
+                }
                 else
-                    CompanyStatus = "Performanta excelenta ";
+                {
+                    CompanyStatus = "Risc major / Dificultati financiare ";
+                }
+            }
+            else
+            {
+                CompanyStatus = "Date insuficiente";
             }
 
 

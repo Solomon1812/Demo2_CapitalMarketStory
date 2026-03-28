@@ -19,7 +19,6 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
     {
         private readonly Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext _context;
 
-        // !!serviciul de calcul al kpi-urilor 
         private readonly ICalculatorService _calcService; 
 
         public CreateModel(Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext context, ICalculatorService calcService)
