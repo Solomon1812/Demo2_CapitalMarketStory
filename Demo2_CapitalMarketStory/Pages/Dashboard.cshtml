@@ -14,7 +14,7 @@
 <h3>Indicatori de performanta anuali</h3>
 
 
-<div style="width: 100%; max-width: 900px; margin: auto; margin-top: 30px;">
+<div style="width: 100%; max-width: 900px; margin: auto;">
     <canvas id="myChart1"></canvas>
 </div>
 
@@ -22,86 +22,10 @@
     <canvas id="myChart2"></canvas>
 </div>
 
-
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        const years = @Html.Raw(Json.Serialize(
-                    Model.FinancialReports
-                    .Where(r => r.YearReported > FirstYearReported)
-                    .Select(r => r.YearReported)));
-
-        const LastYearReported = @LastYearReported;
-
-        const bckgColor = [];
-        const borderColor = [];
-
-        for (let i = 0; i < years.length; i++) {
-
-            let crrtYear = years[i];
-
-            if (crrtYear > LastYearReported) {
-                bckgColor.push('rgba(255, 159, 64)');
-                borderColor.push('rgba(255, 159, 64)');
-            }
-            else {
-                bckgColor.push('rgba(54, 162, 235)');
-                borderColor.push('rgba(54, 162, 235)');
-            }
-        }
-
-        const ctx1 = document.getElementById('myChart1');
-
-        new Chart(ctx1, {
-            type: 'bar',
-            data: {
-            labels: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.YearReported))),
-            datasets: [{
-                label: 'Profit net (RON)',
-                data: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.ProfitNet))),
-                backgroundColor: bckgColor,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-            },
-            options: {
-            responsive: true,
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            }
-            }
-        });
-
-        const ctx2 = document.getElementById('myChart2');
-
-        new Chart(ctx2, {
-            type: 'bar',
-            data: {
-            labels: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.YearReported))),
-            datasets: [{
-                label: 'Cifra de afaceri neta (RON)',
-                data: @Html.Raw(Json.Serialize(Model.FinancialReports.Select(r => r.CifraAfaceriNet))),
-                backgroundColor: bckgColor,
-                borderColor: borderColor,
-                borderWidth: 1
-            }]
-            },
-            options: {
-            responsive: true,
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            }
-            }
-        });
-
-    </script>
-}
-
+<hr>
+<br />
+<h3>Rezumatul companiei tale</h3>
+<br />
 
 <table class="table">
     <thead>
@@ -124,7 +48,7 @@
 
             <tr>
                 <td>@report.YearReported</td>
-                <td>@Html.DisplayFor(modelItem => report.ROA)</td> @* sau <td>@Html.DisplayFor(modelItem => report.ROA)</td> annotation model *@
+                <td>@report.ROA.ToString("P2")</td> @* sau <td>@Html.DisplayFor(modelItem => report.ROA)</td> annotation model *@
                 <td>@report.ROE.ToString("P2")</td>
                 <td>@report.MarjaProfit.ToString("P2")</td>
                 <td>
@@ -134,7 +58,15 @@
                     }
                     else
                     {
-                        @report.RataCrestereCifraAfaceriNet.ToString("P2")
+                        @if(report.RataCrestereCifraAfaceriNet > 0)
+                        {
+                            <span style="background-color: limegreen"> @report.RataCrestereCifraAfaceriNet.ToString("P2")</span>
+                        }
+                        else
+                        {
+                            <span style="background-color: red"> @report.RataCrestereCifraAfaceriNet.ToString("P2")</span>
+                        }
+
                     }
                 </td>
 
@@ -145,7 +77,14 @@
                     }
                     else
                     {
-                        @report.RataCrestereProfitNet.ToString("P2")
+                        @if(report.RataCrestereProfitNet > 0)
+                        {
+                            <span style="background-color: limegreen"> @report.RataCrestereProfitNet.ToString("P2")</span>
+                        }
+                        else
+                        {
+                            <span style="background-color: red"> @report.RataCrestereProfitNet.ToString("P2")</span>
+                        }
                     }
                 </td>
             </tr>
@@ -153,3 +92,91 @@
     </tbody>
 </table>
 
+
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const FirstYearReported = @FirstYearReported;
+        const LastYearReported = @LastYearReported;
+
+
+        const rawData = @Html.Raw(Json.Serialize(
+            Model.FinancialReports
+                .Where(r => r.YearReported > FirstYearReported)
+                .Select(r => new { 
+                    r.YearReported, 
+                    r.ProfitNet, 
+                    r.CifraAfaceriNet 
+                })
+        ));
+
+
+        const years = rawData.map(d => d.yearReported); 
+        const profitData = rawData.map(d => d.profitNet);
+        const CAData = rawData.map(d => d.cifraAfaceriNet);
+
+        const bckgColor = [];
+        const borderColor = [];
+
+        for (let i = 0; i < years.length; i++) {
+            if (years[i] > LastYearReported) {
+                bckgColor.push('rgba(255, 159, 64)'); 
+                borderColor.push('rgba(255, 159, 64)');
+            } else {
+                bckgColor.push('rgba(54, 162, 235)'); 
+                borderColor.push('rgba(54, 162, 235)');
+            }
+        }
+
+        const yAxisFormatter = {
+            callback: function(value) {
+                if (value >= 1000000000) return (value / 1000000000).toFixed(1) + ' Mld';
+                if (value >= 1000000) return (value / 1000000).toFixed(1) + ' Mil';
+                return value;
+            }
+        };
+
+
+        const ctx1 = document.getElementById('myChart1');
+        if(ctx1) { 
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Profit net (RON)',
+                        data: profitData, 
+                        backgroundColor: bckgColor,
+                        borderColor: borderColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: { responsive: true, 
+                    scales: { y: { beginAtZero: true, ticks: yAxisFormatter } } }
+            });
+        }
+
+        const ctx2 = document.getElementById('myChart2');
+        if(ctx2) {
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: years, 
+                    datasets: [{
+                        label: 'Cifra de afaceri neta (RON)',
+                        data: CAData, 
+                        backgroundColor: bckgColor,
+                        borderColor: borderColor,
+                        borderWidth: 1
+                    }]
+                },
+                options: { responsive: true, 
+                    scales: { y: { beginAtZero: true, ticks: yAxisFormatter } } }
+            });
+        }
+
+    </script>
+}
