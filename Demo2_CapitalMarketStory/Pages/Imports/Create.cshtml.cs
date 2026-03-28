@@ -91,8 +91,9 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                     .ToList();
 
 
-                var OverlappingReports = OldReport.Where(r => IncomingYears.Contains(r.YearReported)).ToList();
-
+                var OverlappingReports = OldReport
+                    .Where(r => IncomingYears.Contains(r.YearReported)).ToList();
+                
                 if (OverlappingReports.Any())
                 {
                     if (ConfirmOverwrite == true)
