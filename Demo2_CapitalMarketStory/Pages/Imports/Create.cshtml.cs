@@ -1,5 +1,4 @@
-﻿//pentru citire csv
-using CsvHelper;
+﻿using CsvHelper;
 using Demo2_CapitalMarketStory.Data;
 using Demo2_CapitalMarketStory.Models;
 using Demo2_CapitalMarketStory.Services;
@@ -77,9 +76,7 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                 Import.EndYear = RoughReport.Max(r => r.YearReported);
 
 
-                var CalculatedReport = _calcService.CalculateKpi(RoughReport);
-
-                var IncomingYears = CalculatedReport
+                var IncomingYears = RoughReport
                     .Select(r => r.YearReported)
                     .ToList();
 
@@ -91,8 +88,9 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
 
                 var OverlappingReports = OldReport
-                    .Where(r => IncomingYears.Contains(r.YearReported)).ToList();
-                
+                    .Where(r => IncomingYears
+                        .Contains(r.YearReported)).ToList();
+
                 if (OverlappingReports.Any())
                 {
                     if (ConfirmOverwrite == true)
@@ -106,6 +104,11 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                         return Page();
                     }
                 }
+
+
+                var CalculatedReport = _calcService.CalculateKpi(RoughReport);
+
+                
 
                 Import.Reports = CalculatedReport;
                 _context.Import.Add(Import);

@@ -119,15 +119,12 @@
         const CAData = rawData.map(d => d.cifraAfaceriNet);
 
         const bckgColor = [];
-        const borderColor = [];
 
         for (let i = 0; i < years.length; i++) {
             if (years[i] > LastYearReported) {
-                bckgColor.push('rgba(255, 159, 64)'); 
-                borderColor.push('rgba(255, 159, 64)');
+                bckgColor.push('rgb(255, 159, 64)'); 
             } else {
-                bckgColor.push('rgba(54, 162, 235)'); 
-                borderColor.push('rgba(54, 162, 235)');
+                bckgColor.push('rgb(54, 162, 235)'); 
             }
         }
 
@@ -150,7 +147,7 @@
                         label: 'Profit net (RON)',
                         data: profitData, 
                         backgroundColor: bckgColor,
-                        borderColor: borderColor,
+                        borderColor: "rgb(0, 0, 0)",
                         borderWidth: 1
                     }]
                 },
@@ -169,7 +166,7 @@
                         label: 'Cifra de afaceri neta (RON)',
                         data: CAData, 
                         backgroundColor: bckgColor,
-                        borderColor: borderColor,
+                        borderColor: "rgb(0, 0, 0)",
                         borderWidth: 1
                     }]
                 },

@@ -5,11 +5,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Index Imports</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-sm btn-success">Create New</a>
 </p>
+<br />
 
 <form asp-page="./Index" method="get">
     <div class="form-actions">
@@ -59,11 +60,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Company.Name)
             </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ImportId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ImportId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ImportId">Delete</a>
+            <td style="white-space: nowrap;">
+                    <a asp-page="./Edit" asp-route-id="@item.ImportId" class="btn btn-sm btn-outline-primary">Edit</a> 
+                    <a asp-page="./Details" asp-route-id="@item.ImportId" class="btn btn-sm btn-outline-info">Details</a> 
+                    <a asp-page="./Delete" asp-route-id="@item.ImportId" class="btn btn-sm btn-outline-danger">Delete</a>
             </td>
+
         </tr>
 }
     </tbody>

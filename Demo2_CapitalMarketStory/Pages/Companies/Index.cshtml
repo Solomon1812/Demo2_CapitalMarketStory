@@ -5,12 +5,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Index Companies</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-sm btn-success">Create New</a>
 </p>
 
+<br/>
 <form asp-page="./Index" method="get">
     <div class="form-actions">
         <p>
@@ -86,11 +87,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Website)
                 </td>
-                <td>
-                    <a asp-page="/Imports/Create" asp-route-companyId="@item.CompanyId">Add import file</a> |
-                    <a asp-page="./Edit" asp-route-id="@item.CompanyId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.CompanyId">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.CompanyId">Delete</a>
+
+                <td style="white-space: nowrap;">
+                    <a asp-page="/Imports/Create" asp-route-companyId="@item.CompanyId" class="btn btn-sm btn-success">Add Import</a>
+                    <a asp-page="./Edit" asp-route-id="@item.CompanyId" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-page="./Details" asp-route-id="@item.CompanyId" class="btn btn-sm btn-outline-info">Details</a>
+                    <a asp-page="./Delete" asp-route-id="@item.CompanyId" class="btn btn-sm btn-outline-danger">Delete</a>
                 </td>
             </tr>
         }
