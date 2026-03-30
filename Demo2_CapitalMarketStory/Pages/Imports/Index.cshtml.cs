@@ -34,15 +34,18 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
             if (!String.IsNullOrEmpty(searchCompany))
             {
-                importsIQ = importsIQ.Where(i => i.Company.Name.Contains(searchCompany));
+                importsIQ = importsIQ
+                    .Where(i => i.Company.Name.Contains(searchCompany));
             }
 
             if (searchDate.HasValue)
             {
-                importsIQ = importsIQ.Where(i => i.ImportDate.Date == searchDate.Value.Date);
+                importsIQ = importsIQ
+                    .Where(i => i.ImportDate.Date == searchDate.Value.Date);
             }
 
-            importsIQ = importsIQ.OrderByDescending(i => i.ImportDate);
+            importsIQ = importsIQ
+                .OrderByDescending(i => i.ImportDate);
 
             Import = await importsIQ
                 .AsNoTracking()

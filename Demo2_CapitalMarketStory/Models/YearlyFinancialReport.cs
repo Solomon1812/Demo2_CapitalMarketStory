@@ -145,7 +145,7 @@ namespace Demo2_CapitalMarketStory.Models
         [Ignore]
         [Display(Name = "ROA Rentabilitatea activelor")]
         [Column(TypeName = "decimal(14,4)")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")] //convertire in procent cu 2 zecimale
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")] 
         public decimal ROA { get; set; }
         //interval optim 5%-15%
 

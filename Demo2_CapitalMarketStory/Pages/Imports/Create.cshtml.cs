@@ -86,10 +86,10 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                     .Where(r => r.Import.CompanyId == Import.CompanyId)
                     .ToList();
 
-
                 var OverlappingReports = OldReport
                     .Where(r => IncomingYears
                         .Contains(r.YearReported)).ToList();
+
 
                 if (OverlappingReports.Any())
                 {
@@ -104,6 +104,12 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                         return Page();
                     }
                 }
+
+                var OldPrediction = OldReport
+                    .Where(r => r.YearReported > Import.EndYear)
+                    .ToList();
+                _context.YearlyFinancialReport.RemoveRange(OldPrediction);
+
 
 
                 var CalculatedReport = _calcService.CalculateKpi(RoughReport);

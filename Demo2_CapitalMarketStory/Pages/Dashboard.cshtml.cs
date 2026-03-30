@@ -19,7 +19,7 @@ namespace Demo2_CapitalMarketStory.Pages
 
         public Company Company { get; set; }
         public List<YearlyFinancialReport> FinancialReports { get; set; }
-        public string CompanyStatus { get; private set; }
+        public string CompanyStatus { get; set; }
 
 
         public async Task<IActionResult> OnGetAsync(int? companyId)
