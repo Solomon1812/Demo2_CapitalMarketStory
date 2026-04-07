@@ -6,15 +6,15 @@ Stocuri;i3
 Creante;i4
 Casa si conturi la banci;i5
 CHELTUIELI IN AVANS;i6
-DATORII;i7
+DATORII;i7			nesemnificativ profit
 VENITURI IN AVANS;i8
-PROVIZIOANE;i9
+PROVIZIOANE;i9			nesemnificativ profit
 CAPITALURI - TOTAL din care:;i10
 Capital subscris varsat;i11
 Patrimoniul regiei;i12
 Cifra de afaceri neta;i13
-VENITURI TOTALE;i14
-CHELTUIELI TOTALE;i15
+VENITURI TOTALE;i14		nesemnificativ profit
+CHELTUIELI TOTALE;i15   	nesemnificativ profit
 Profitul brut;i16
 Pierdere bruta;i17
 Profitul net;i18

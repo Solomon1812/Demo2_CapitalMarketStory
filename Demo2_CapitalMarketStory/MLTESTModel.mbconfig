@@ -8,8 +8,8 @@
     "KeepPunctuations": false,
     "AllowQuoting": false,
     "Type": "TabularFile",
-    "FilePath": "C:\\Users\\Solomon\\Documents\\Materiale facultate anul 3 sem 2\\LICENTA\\dataGovRo\\dateFin10ani.csv",
-    "Delimiter": ";",
+    "FilePath": "C:\\Users\\Solomon\\Documents\\Materiale facultate anul 3 sem 2\\LICENTA\\dataGovRo\\web_bl_bs_sl_an2024.txt",
+    "Delimiter": ",",
     "DecimalMarker": ".",
     "HasHeader": true,
     "ColumnProperties": [
@@ -47,38 +47,6 @@
       },
       {
         "ColumnName": "I3",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "I4",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "I5",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "I6",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "I7",
         "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
@@ -86,8 +54,40 @@
         "Version": 5
       },
       {
-        "ColumnName": "I8",
+        "ColumnName": "I4",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I5",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I6",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I7",
         "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I8",
+        "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -103,7 +103,7 @@
       },
       {
         "ColumnName": "I10",
-        "ColumnPurpose": "Feature",
+        "ColumnPurpose": "Label",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -111,7 +111,7 @@
       },
       {
         "ColumnName": "I11",
-        "ColumnPurpose": "Feature",
+        "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -119,7 +119,7 @@
       },
       {
         "ColumnName": "I12",
-        "ColumnPurpose": "Feature",
+        "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -151,7 +151,7 @@
       },
       {
         "ColumnName": "I16",
-        "ColumnPurpose": "Feature",
+        "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -159,7 +159,7 @@
       },
       {
         "ColumnName": "I17",
-        "ColumnPurpose": "Feature",
+        "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -167,7 +167,7 @@
       },
       {
         "ColumnName": "I18",
-        "ColumnPurpose": "Label",
+        "ColumnPurpose": "Feature",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -175,7 +175,7 @@
       },
       {
         "ColumnName": "I19",
-        "ColumnPurpose": "Feature",
+        "ColumnPurpose": "Ignore",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
         "Type": "Column",
@@ -186,14 +186,6 @@
         "ColumnPurpose": "Feature",
         "ColumnDataFormat": "Single",
         "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "An",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": true,
         "Type": "Column",
         "Version": 5
       }
@@ -210,235 +202,46 @@
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "SdcaRegression",
-        "Score": 0.81466327648720427,
-        "RuntimeInSeconds": 8.452,
+        "TrainerName": "FastForestRegression",
+        "Score": 0.58946763239055144,
+        "RuntimeInSeconds": 0.341,
         "Parameter": {
-          "_SCHEMA_": "e0 * e1 * e6",
+          "_SCHEMA_": "e0 * e1 * e3",
           "e0": {
             "OutputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ],
             "InputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ]
           },
           "e1": {
             "InputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ],
             "OutputColumnName": "Features"
           },
-          "e6": {
-            "L1Regularization": 1.0,
-            "L2Regularization": 0.1,
-            "LabelColumnName": "I18",
-            "FeatureColumnName": "Features"
-          }
-        }
-      },
-      {
-        "Version": 1,
-        "Type": "Trial",
-        "TrainerName": "FastTreeRegression",
-        "Score": 0.65436426064411912,
-        "RuntimeInSeconds": 5.081,
-        "Parameter": {
-          "_SCHEMA_": "e0 * e1 * e2",
-          "e0": {
-            "OutputColumnNames": [
-              "I1",
-              "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
-              "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
-            ],
-            "InputColumnNames": [
-              "I1",
-              "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
-              "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
-            ]
-          },
-          "e1": {
-            "InputColumnNames": [
-              "I1",
-              "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
-              "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
-            ],
-            "OutputColumnName": "Features"
-          },
-          "e2": {
-            "NumberOfLeaves": 102,
-            "MinimumExampleCountPerLeaf": 29,
+          "e3": {
             "NumberOfTrees": 4,
-            "MaximumBinCountPerFeature": 521,
-            "FeatureFraction": 0.92202844481861157,
-            "LearningRate": 0.321071123440326,
-            "LabelColumnName": "I18",
-            "FeatureColumnName": "Features",
-            "DiskTranspose": false
-          }
-        }
-      },
-      {
-        "Version": 1,
-        "Type": "Trial",
-        "TrainerName": "FastTreeRegression",
-        "Score": 0.61563619730557606,
-        "RuntimeInSeconds": 5.622,
-        "Parameter": {
-          "_SCHEMA_": "e0 * e1 * e2",
-          "e0": {
-            "OutputColumnNames": [
-              "I1",
-              "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
-              "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
-            ],
-            "InputColumnNames": [
-              "I1",
-              "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
-              "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
-            ]
-          },
-          "e1": {
-            "InputColumnNames": [
-              "I1",
-              "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
-              "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
-            ],
-            "OutputColumnName": "Features"
-          },
-          "e2": {
-            "NumberOfLeaves": 27,
-            "MinimumExampleCountPerLeaf": 34,
-            "NumberOfTrees": 5,
-            "MaximumBinCountPerFeature": 361,
-            "FeatureFraction": 0.99999999,
-            "LearningRate": 0.33320657436310991,
-            "LabelColumnName": "I18",
-            "FeatureColumnName": "Features",
-            "DiskTranspose": false
+            "NumberOfLeaves": 5,
+            "FeatureFraction": 0.9252261,
+            "LabelColumnName": "I10",
+            "FeatureColumnName": "Features"
           }
         }
       },
@@ -446,74 +249,44 @@
         "Version": 1,
         "Type": "Trial",
         "TrainerName": "FastForestRegression",
-        "Score": 0.60019515772260856,
-        "RuntimeInSeconds": 5.572,
+        "Score": 0.57920420150288043,
+        "RuntimeInSeconds": 0.32,
         "Parameter": {
           "_SCHEMA_": "e0 * e1 * e3",
           "e0": {
             "OutputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ],
             "InputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ]
           },
           "e1": {
             "InputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ],
             "OutputColumnName": "Features"
           },
           "e3": {
-            "NumberOfTrees": 22,
-            "NumberOfLeaves": 7,
-            "FeatureFraction": 1.0,
-            "LabelColumnName": "I18",
+            "NumberOfTrees": 4,
+            "NumberOfLeaves": 5,
+            "FeatureFraction": 0.81744874,
+            "LabelColumnName": "I10",
             "FeatureColumnName": "Features"
           }
         }
@@ -521,80 +294,144 @@
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "FastTreeRegression",
-        "Score": 0.59614109365974544,
-        "RuntimeInSeconds": 5.652,
+        "TrainerName": "FastForestRegression",
+        "Score": 0.55609609407744776,
+        "RuntimeInSeconds": 0.94,
         "Parameter": {
-          "_SCHEMA_": "e0 * e1 * e2",
+          "_SCHEMA_": "e0 * e1 * e3",
           "e0": {
             "OutputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ],
             "InputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ]
           },
           "e1": {
             "InputColumnNames": [
               "I1",
               "I2",
-              "I3",
-              "I4",
-              "I5",
-              "I6",
-              "I8",
-              "I10",
-              "I11",
-              "I12",
+              "I7",
               "I13",
-              "I16",
-              "I17",
-              "I19",
-              "I20",
-              "An"
+              "I18",
+              "I20"
             ],
             "OutputColumnName": "Features"
           },
-          "e2": {
-            "NumberOfLeaves": 14,
-            "MinimumExampleCountPerLeaf": 22,
-            "NumberOfTrees": 5,
-            "MaximumBinCountPerFeature": 352,
-            "FeatureFraction": 0.99999999,
-            "LearningRate": 0.29383167448374,
-            "LabelColumnName": "I18",
-            "FeatureColumnName": "Features",
-            "DiskTranspose": false
+          "e3": {
+            "NumberOfTrees": 4,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 1.0,
+            "LabelColumnName": "I10",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.53982600290648608,
+        "RuntimeInSeconds": 0.344,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e3",
+          "e0": {
+            "OutputColumnNames": [
+              "I1",
+              "I2",
+              "I7",
+              "I13",
+              "I18",
+              "I20"
+            ],
+            "InputColumnNames": [
+              "I1",
+              "I2",
+              "I7",
+              "I13",
+              "I18",
+              "I20"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "I1",
+              "I2",
+              "I7",
+              "I13",
+              "I18",
+              "I20"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 10,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 1.0,
+            "LabelColumnName": "I10",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmRegression",
+        "Score": 0.42728931671465009,
+        "RuntimeInSeconds": 0.902,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "I1",
+              "I2",
+              "I7",
+              "I13",
+              "I18",
+              "I20"
+            ],
+            "InputColumnNames": [
+              "I1",
+              "I2",
+              "I7",
+              "I13",
+              "I18",
+              "I20"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "I1",
+              "I2",
+              "I7",
+              "I13",
+              "I18",
+              "I20"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 20,
+            "LearningRate": 1.0,
+            "NumberOfTrees": 4,
+            "SubsampleFraction": 1.0,
+            "MaximumBinCountPerFeature": 254,
+            "FeatureFraction": 1.0,
+            "L1Regularization": 2E-10,
+            "L2Regularization": 1.0,
+            "LabelColumnName": "I10",
+            "FeatureColumnName": "Features"
           }
         }
       }
@@ -618,8 +455,8 @@
     "Version": 2,
     "Subsampling": false,
     "Type": "RegressionTrainingOption",
-    "TrainingTime": 600,
-    "LabelColumn": "I18",
+    "TrainingTime": 10,
+    "LabelColumn": "I10",
     "ValidationOption": {
       "Version": 0,
       "Type": "TrainValidateSplitValidationOption",

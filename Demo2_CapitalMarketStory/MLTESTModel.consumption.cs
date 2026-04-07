@@ -23,65 +23,25 @@ namespace Demo2_CapitalMarketStory
             [ColumnName(@"I2")]
             public float I2 { get; set; }
 
-            [LoadColumn(4)]
-            [ColumnName(@"I3")]
-            public float I3 { get; set; }
-
-            [LoadColumn(5)]
-            [ColumnName(@"I4")]
-            public float I4 { get; set; }
-
-            [LoadColumn(6)]
-            [ColumnName(@"I5")]
-            public float I5 { get; set; }
-
-            [LoadColumn(7)]
-            [ColumnName(@"I6")]
-            public float I6 { get; set; }
-
-            [LoadColumn(9)]
-            [ColumnName(@"I8")]
-            public float I8 { get; set; }
+            [LoadColumn(8)]
+            [ColumnName(@"I7")]
+            public float I7 { get; set; }
 
             [LoadColumn(11)]
             [ColumnName(@"I10")]
             public float I10 { get; set; }
 
-            [LoadColumn(12)]
-            [ColumnName(@"I11")]
-            public float I11 { get; set; }
-
-            [LoadColumn(13)]
-            [ColumnName(@"I12")]
-            public float I12 { get; set; }
-
             [LoadColumn(14)]
             [ColumnName(@"I13")]
             public float I13 { get; set; }
-
-            [LoadColumn(17)]
-            [ColumnName(@"I16")]
-            public float I16 { get; set; }
-
-            [LoadColumn(18)]
-            [ColumnName(@"I17")]
-            public float I17 { get; set; }
 
             [LoadColumn(19)]
             [ColumnName(@"I18")]
             public float I18 { get; set; }
 
-            [LoadColumn(20)]
-            [ColumnName(@"I19")]
-            public float I19 { get; set; }
-
             [LoadColumn(21)]
             [ColumnName(@"I20")]
             public float I20 { get; set; }
-
-            [LoadColumn(22)]
-            [ColumnName(@"An")]
-            public float An { get; set; }
 
         }
 
@@ -99,50 +59,20 @@ namespace Demo2_CapitalMarketStory
             [ColumnName(@"I2")]
             public float I2 { get; set; }
 
-            [ColumnName(@"I3")]
-            public float I3 { get; set; }
-
-            [ColumnName(@"I4")]
-            public float I4 { get; set; }
-
-            [ColumnName(@"I5")]
-            public float I5 { get; set; }
-
-            [ColumnName(@"I6")]
-            public float I6 { get; set; }
-
-            [ColumnName(@"I8")]
-            public float I8 { get; set; }
+            [ColumnName(@"I7")]
+            public float I7 { get; set; }
 
             [ColumnName(@"I10")]
             public float I10 { get; set; }
 
-            [ColumnName(@"I11")]
-            public float I11 { get; set; }
-
-            [ColumnName(@"I12")]
-            public float I12 { get; set; }
-
             [ColumnName(@"I13")]
             public float I13 { get; set; }
-
-            [ColumnName(@"I16")]
-            public float I16 { get; set; }
-
-            [ColumnName(@"I17")]
-            public float I17 { get; set; }
 
             [ColumnName(@"I18")]
             public float I18 { get; set; }
 
-            [ColumnName(@"I19")]
-            public float I19 { get; set; }
-
             [ColumnName(@"I20")]
             public float I20 { get; set; }
-
-            [ColumnName(@"An")]
-            public float An { get; set; }
 
             [ColumnName(@"Features")]
             public float[] Features { get; set; }

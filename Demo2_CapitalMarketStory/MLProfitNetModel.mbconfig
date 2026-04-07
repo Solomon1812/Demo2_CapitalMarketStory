@@ -1,5 +1,5 @@
 ﻿{
-  "Scenario": "Forecasting",
+  "Scenario": "Regression",
   "DataSource": {
     "Version": 3,
     "EscapeCharacter": "\"",
@@ -8,8 +8,8 @@
     "KeepPunctuations": false,
     "AllowQuoting": false,
     "Type": "TabularFile",
-    "FilePath": "C:\\Users\\Solomon\\Desktop\\10ani fara caen\\istoric_financiar_PORSCHE_CUI9997007.csv",
-    "Delimiter": ",",
+    "FilePath": "C:\\Users\\Solomon\\Documents\\Materiale facultate anul 3 sem 2\\LICENTA\\dataGovRo\\dateFin10ani.csv",
+    "Delimiter": ";",
     "DecimalMarker": ".",
     "HasHeader": true,
     "ColumnProperties": [
@@ -22,170 +22,178 @@
         "Version": 5
       },
       {
+        "ColumnName": "CAEN",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I1",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I2",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I3",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I4",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I5",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I6",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I7",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I8",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I9",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I10",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I11",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I12",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I13",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I14",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I15",
+        "ColumnPurpose": "Ignore",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I16",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I17",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I18",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I19",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "I20",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
         "ColumnName": "An",
         "ColumnPurpose": "Feature",
         "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Active Imobilizate - Total",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Active Circulante - Total",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Stocuri",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Creante",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Casa si conturi la banci",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Cheltuieli in avans",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Datorii",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Venituri in avans",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Provizioane",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Capitaluri - Total",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Capital subscris varsat",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Patrimoniul regiei",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Cifra de afaceri neta",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Venituri Totale",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Cheltuieli Totale",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Profitul Brut",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Pierderea Bruta",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Profitul Net",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Pierderea Neta",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
-        "Type": "Column",
-        "Version": 5
-      },
-      {
-        "ColumnName": "Numar mediu de salariati",
-        "ColumnPurpose": "Feature",
-        "ColumnDataFormat": "Single",
-        "IsCategorical": false,
+        "IsCategorical": true,
         "Type": "Column",
         "Version": 5
       }
@@ -202,128 +210,456 @@
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.157,
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.74933900356637717,
+        "RuntimeInSeconds": 5.423,
         "Parameter": {
-          "_SCHEMA_": "e0",
+          "_SCHEMA_": "e0 * e1 * e2",
           "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 10,
-            "TrainSize": 10,
-            "Horizon": 10,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+            "OutputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 14,
+            "MinimumExampleCountPerLeaf": 12,
+            "NumberOfTrees": 7,
+            "MaximumBinCountPerFeature": 625,
+            "FeatureFraction": 0.99999999,
+            "LearningRate": 0.60281780060582235,
+            "LabelColumnName": "I18",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
           }
         }
       },
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.004,
+        "TrainerName": "FastTreeRegression",
+        "Score": 0.69693344020191872,
+        "RuntimeInSeconds": 5.539,
         "Parameter": {
-          "_SCHEMA_": "e0",
+          "_SCHEMA_": "e0 * e1 * e2",
           "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 2356,
-            "TrainSize": 10,
-            "Horizon": 10,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+            "OutputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e2": {
+            "NumberOfLeaves": 6,
+            "MinimumExampleCountPerLeaf": 18,
+            "NumberOfTrees": 6,
+            "MaximumBinCountPerFeature": 749,
+            "FeatureFraction": 0.99999999,
+            "LearningRate": 0.31301249676142079,
+            "LabelColumnName": "I18",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
           }
         }
       },
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.003,
+        "TrainerName": "FastForestRegression",
+        "Score": 0.66765499567162556,
+        "RuntimeInSeconds": 4.93,
         "Parameter": {
-          "_SCHEMA_": "e0",
+          "_SCHEMA_": "e0 * e1 * e3",
           "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 1881,
-            "TrainSize": 10,
-            "Horizon": 10,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+            "OutputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 5,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 0.9585626,
+            "LabelColumnName": "I18",
+            "FeatureColumnName": "Features"
           }
         }
       },
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.005,
+        "TrainerName": "FastForestRegression",
+        "Score": 0.66765499567162556,
+        "RuntimeInSeconds": 4.757,
         "Parameter": {
-          "_SCHEMA_": "e0",
+          "_SCHEMA_": "e0 * e1 * e3",
           "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 418,
-            "TrainSize": 10,
-            "Horizon": 10,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+            "OutputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 5,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 0.95570356,
+            "LabelColumnName": "I18",
+            "FeatureColumnName": "Features"
           }
         }
       },
       {
         "Version": 1,
         "Type": "Trial",
-        "TrainerName": "ForecastBySsa",
-        "Score": 94728803.166803852,
-        "RuntimeInSeconds": 0.003,
+        "TrainerName": "FastForestRegression",
+        "Score": 0.66526790879426156,
+        "RuntimeInSeconds": 5.076,
         "Parameter": {
-          "_SCHEMA_": "e0",
+          "_SCHEMA_": "e0 * e1 * e3",
           "e0": {
-            "WindowSize": 2,
-            "SeriesLength": 583,
-            "TrainSize": 10,
-            "Horizon": 10,
-            "OutputColumnName": "Profitul Net",
-            "InputColumnName": "Profitul Net",
-            "ConfidenceLowerBoundColumn": "Profitul Net_LB",
-            "ConfidenceUpperBoundColumn": "Profitul Net_UB"
+            "OutputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "CUI",
+              "CAEN",
+              "I1",
+              "I2",
+              "I3",
+              "I4",
+              "I5",
+              "I6",
+              "I8",
+              "I10",
+              "I11",
+              "I12",
+              "I13",
+              "I16",
+              "I17",
+              "I19",
+              "I20",
+              "An"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 5,
+            "NumberOfLeaves": 5,
+            "FeatureFraction": 0.97113204,
+            "LabelColumnName": "I18",
+            "FeatureColumnName": "Features"
           }
         }
       }
     ],
     "Estimators": {
-      "e0": "ForecastBySsa"
+      "e0": "ReplaceMissingValues",
+      "e1": "Concatenate",
+      "e2": "FastTreeRegression",
+      "e3": "FastForestRegression",
+      "e4": "LightGbmRegression",
+      "e5": "LbfgsPoissonRegressionRegression",
+      "e6": "SdcaRegression"
     },
-    "Schema": "e0",
-    "MetricName": "RMSE",
+    "Schema": "e0 * e1 * (e2 + e3 + e4 + e5 + e6)",
+    "MetricName": "RSquared",
     "ModelFilePath": "C:\\Users\\Solomon\\Documents\\Materiale facultate anul 3 sem 2\\LICENTA\\Demo2_CapitalMarketStory\\MLProfitNetModel.mlnet"
   },
   "Type": "TrainingConfig",
   "Version": 5,
   "TrainingOption": {
-    "Version": 3,
-    "OptimizeMetric": "RMSE",
+    "Version": 2,
     "Subsampling": false,
-    "Type": "ForecastingTrainingOption",
-    "TrainingTime": 20,
-    "UseCrossValidation": false,
-    "Horizon": 10,
-    "TimeColumn": "An",
-    "LabelColumn": "Profitul Net",
-    "UseDefaultIndex": false,
+    "Tuner": "eci-cfo",
+    "Type": "RegressionTrainingOption",
+    "TrainingTime": 600,
+    "OptimizeMetric": "RSquared",
+    "LabelColumn": "I18",
+    "AvailableTrainers": [
+      "SDCA",
+      "LBFGS",
+      "LGBM",
+      "FASTTREE",
+      "FASTFOREST"
+    ],
     "ValidationOption": {
       "Version": 0,
-      "Type": "CrossValidationValidationOption",
-      "NumberOfFolds": 5
+      "Type": "TrainValidateSplitValidationOption",
+      "SplitRatio": 0.2
     }
   }
 }

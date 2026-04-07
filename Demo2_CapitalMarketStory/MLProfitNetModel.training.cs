@@ -6,13 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ML;
+using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
+using Microsoft.ML.Trainers.FastTree;
 
 namespace Demo2_CapitalMarketStory
 {
     public partial class MLProfitNetModel
     {
-        public const string RetrainFilePath =  @"C:\Users\Solomon\Desktop\10ani fara caen\istoric_financiar_PORSCHE_CUI9997007.csv";
-        public const char RetrainSeparatorChar = ',';
+        public const string RetrainFilePath =  @"C:\Users\Solomon\Documents\Materiale facultate anul 3 sem 2\LICENTA\dataGovRo\dateFin10ani.csv";
+        public const char RetrainSeparatorChar = ';';
         public const bool RetrainHasHeader =  true;
         public const bool RetrainAllowQuoting =  false;
 
@@ -87,7 +90,9 @@ namespace Demo2_CapitalMarketStory
         public static IEstimator<ITransformer> BuildPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations
-            var pipeline = mlContext.Forecasting.ForecastBySsa(windowSize:2,seriesLength:10,trainSize:10,horizon:10,outputColumnName:@"Profitul Net",inputColumnName:@"Profitul Net",confidenceLowerBoundColumn:@"Profitul Net_LB",confidenceUpperBoundColumn:@"Profitul Net_UB");
+            var pipeline = mlContext.Transforms.ReplaceMissingValues(new []{new InputOutputColumnPair(@"CUI", @"CUI"),new InputOutputColumnPair(@"CAEN", @"CAEN"),new InputOutputColumnPair(@"I1", @"I1"),new InputOutputColumnPair(@"I2", @"I2"),new InputOutputColumnPair(@"I3", @"I3"),new InputOutputColumnPair(@"I4", @"I4"),new InputOutputColumnPair(@"I5", @"I5"),new InputOutputColumnPair(@"I6", @"I6"),new InputOutputColumnPair(@"I8", @"I8"),new InputOutputColumnPair(@"I10", @"I10"),new InputOutputColumnPair(@"I11", @"I11"),new InputOutputColumnPair(@"I12", @"I12"),new InputOutputColumnPair(@"I13", @"I13"),new InputOutputColumnPair(@"I16", @"I16"),new InputOutputColumnPair(@"I17", @"I17"),new InputOutputColumnPair(@"I19", @"I19"),new InputOutputColumnPair(@"I20", @"I20"),new InputOutputColumnPair(@"An", @"An")})      
+                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"CUI",@"CAEN",@"I1",@"I2",@"I3",@"I4",@"I5",@"I6",@"I8",@"I10",@"I11",@"I12",@"I13",@"I16",@"I17",@"I19",@"I20",@"An"}))      
+                                    .Append(mlContext.Regression.Trainers.FastTree(new FastTreeRegressionTrainer.Options(){NumberOfLeaves=14,MinimumExampleCountPerLeaf=12,NumberOfTrees=7,MaximumBinCountPerFeature=625,FeatureFraction=0.99999999,LearningRate=0.6028178006058224,LabelColumnName=@"I18",FeatureColumnName=@"Features",DiskTranspose=false}));
 
             return pipeline;
         }

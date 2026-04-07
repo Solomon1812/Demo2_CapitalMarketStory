@@ -10,6 +10,37 @@
 
 <h2>Evolutia companiei: @Model.Company?.Name</h2>
 <h3 style="color:darkblue;">Status curent (pe baza ultimului an): @Model.CompanyStatus</h3>
+<h3 style="color:darkblue;">Scor insolventa: @Model.AltmanZScore.ToString("F2") - indicand @Model.InsolvencyRisk</h3>
+
+
+<div style="background-color: whitesmoke; border-left: 5px solid orange; padding: 15px; margin-top: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
+    <h4 >Audit</h4>
+    
+    <p>
+        Capitalul real curent (Averea declarată): <strong>@Model.RealCurrentCapital.ToString("N0") RON</strong>
+    </p>
+    <p>
+        Valoarea estimată de AI (Potențialul de piață): <strong>@Model.PredictedCapValue.ToString("N0") RON</strong>
+    </p>
+
+    <hr style="border-top: 1px solid black; "/>
+
+    <p style="color: dimgray; ">
+        <strong>Concluzia algoritmului:</strong> 
+        @if (Model.RealCurrentCapital > Model.PredictedCapValue)
+        {
+            <span style="color: green;">
+                Compania este <strong>sub-evaluată</strong> de piață. Produce mai multă avere reală (capital) decât ar fi capabilă media națională având la dispoziție aceleași active și vânzări. Este o demonstrație de eficiență a managementului.
+            </span>
+        }
+        else
+        {
+            <span style="color: red;">
+                Compania este <strong>supra-evaluată</strong> (sau ineficientă). Algoritmul indică faptul că, având aceleași active și vânzări, o firmă medie din România ar produce un capital mult mai mare. Resursele nu sunt exploatate la potențialul maxim.
+            </span>
+        }
+    </p>
+</div>
 
 <br />
 <h3>Indicatori de performanta anuali</h3>
@@ -109,25 +140,38 @@
                 .Where(r => r.YearReported > FirstYearReported)
                 .Select(r => new { 
                     r.YearReported, 
-                    r.ProfitNet, 
-                    r.CifraAfaceriNet 
+                    ProfitNet = r.ProfitNet - r.PierdereNet, 
+                    ROE = r.ROE * 100 
                 })
         ));
 
 
         const years = rawData.map(d => d.yearReported); 
         const profitData = rawData.map(d => d.profitNet);
-        const CAData = rawData.map(d => d.cifraAfaceriNet);
+        const roeData = rawData.map(d => d.roe);
 
-        const bckgColor = [];
 
-        for (let i = 0; i < years.length; i++) {
-            if (years[i] > LastYearReported) {
-                bckgColor.push('rgb(255, 159, 64)'); 
-            } else {
-                bckgColor.push('rgb(54, 162, 235)'); 
-            }
-        }
+        // const bckgColor = [];
+
+        // for (let i = 0; i < years.length; i++) {
+        //     if (years[i] > LastYearReported) {
+        //         bckgColor.push('rgb(255, 159, 64)'); 
+        //     } else {
+        //         bckgColor.push('rgb(54, 162, 235)'); 
+        //     }
+        // }
+
+
+        const bckgColor = years.map(() => 'rgb(54, 162, 235)'); // Toți anii reali sunt albaștri
+
+        // INJECTĂM PREDICȚIA AI DOAR PENTRU GRAFIC
+        const predictedProfit = @Model.PredictedProfit2025;
+        const nextYear = years[years.length - 1] + 1;
+        
+        years.push(nextYear); // Adăugăm 2025 pe axa X
+        profitData.push(predictedProfit); // Adăugăm profitul AI
+        bckgColor.push('rgb(255, 159, 64)'); // Bara 2025 devine portocalie!
+        roeData.push(null); // Chart.js va opri linia de ROE exact la 2024, ignorând 2025
 
         const yAxisFormatter = {
             callback: function(value) {
@@ -160,19 +204,31 @@
         const ctx2 = document.getElementById('myChart2');
         if(ctx2) {
             new Chart(ctx2, {
-                type: 'bar',
+                type: 'line', // Transformăm din Bar în Linie
                 data: {
                     labels: years, 
                     datasets: [{
-                        label: 'Cifra de afaceri neta (RON)',
-                        data: CAData, 
-                        backgroundColor: bckgColor,
-                        borderColor: "rgb(0, 0, 0)",
-                        borderWidth: 1
+                        label: 'Eficiența Capitalului (ROE %)',
+                        data: roeData, 
+                        borderColor: 'rgb(75, 192, 192)', // O linie turcoaz elegantă
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Culoare de umplere sub linie
+                        borderWidth: 3,
+                        tension: 0.3, // Face linia curbată (smooth)
+                        fill: true,
+                        pointBackgroundColor: bckgColor, // Păstrăm culoarea portocalie pentru anul prezis de AI!
+                        pointRadius: 5
                     }]
                 },
-                options: { responsive: true, 
-                    scales: { y: { beginAtZero: true, ticks: yAxisFormatter } } }
+                options: { 
+                    responsive: true, 
+                    scales: { 
+                        y: { 
+                            ticks: { 
+                                callback: function(value) { return value + '%'; } // Punem % pe axa Y
+                            } 
+                        } 
+                    } 
+                }
             });
         }
 
