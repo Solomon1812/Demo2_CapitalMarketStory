@@ -4,25 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Demo2_CapitalMarketStoryContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Demo2_CapitalMarketStoryContext") ?? throw new InvalidOperationException("Connection string 'Demo2_CapitalMarketStoryContext' not found.")));
 
 
-// dependency injection pentru serviciul de calcul al kpi-urilor
 builder.Services.AddScoped<ICalculatorService, CalculatorService>();
-
-
-
-
-
-
-
-
-
-
-
+builder.Services.AddScoped<IFinancialAnalysisService, FinancialAnalysisService>();
 
 
 

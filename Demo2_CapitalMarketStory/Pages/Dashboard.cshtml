@@ -17,17 +17,17 @@
     <h4 >Audit</h4>
     
     <p>
-        Capitalul real curent (Averea declarată): <strong>@Model.RealCurrentCapital.ToString("N0") RON</strong>
+        Capitalul real curent : <strong>@Model.RealCurrentCapital.ToString("N0") RON</strong>
     </p>
     <p>
-        Valoarea estimată de AI (Potențialul de piață): <strong>@Model.PredictedCapValue.ToString("N0") RON</strong>
+        Valoarea estimată (Potențialul de piață): <strong>@Model.PredictedCapValue.ToString("N0") RON</strong>
     </p>
 
     <hr style="border-top: 1px solid black; "/>
 
     <p style="color: dimgray; ">
         <strong>Concluzia algoritmului:</strong> 
-        @if (Model.RealCurrentCapital > Model.PredictedCapValue)
+        @* @if (Model.RealCurrentCapital > Model.PredictedCapValue)
         {
             <span style="color: green;">
                 Compania este <strong>sub-evaluată</strong> de piață. Produce mai multă avere reală (capital) decât ar fi capabilă media națională având la dispoziție aceleași active și vânzări. Este o demonstrație de eficiență a managementului.
@@ -38,7 +38,7 @@
             <span style="color: red;">
                 Compania este <strong>supra-evaluată</strong> (sau ineficientă). Algoritmul indică faptul că, având aceleași active și vânzări, o firmă medie din România ar produce un capital mult mai mare. Resursele nu sunt exploatate la potențialul maxim.
             </span>
-        }
+        } *@
     </p>
 </div>
 
@@ -65,9 +65,9 @@
             <th>Anul</th>
             <th>ROA</th>
             <th>ROE</th>
-            <th>Marja Profitului</th>
-            <th>Creștere CA</th>
-            <th>Creștere Profit Net</th>
+            <th>Marja profitului</th>
+            <th>Creșterea cifrei de afaceri</th>
+            <th>Creștere profit net</th>
         </tr>
     </thead>
     <tbody>
@@ -173,6 +173,7 @@
         bckgColor.push('rgb(255, 159, 64)'); // Bara 2025 devine portocalie!
         roeData.push(null); // Chart.js va opri linia de ROE exact la 2024, ignorând 2025
 
+
         const yAxisFormatter = {
             callback: function(value) {
                 if (value >= 1000000000) return (value / 1000000000).toFixed(1) + ' Mld';
@@ -206,7 +207,7 @@
             new Chart(ctx2, {
                 type: 'line', // Transformăm din Bar în Linie
                 data: {
-                    labels: years, 
+                    labels: [LastYearReported], 
                     datasets: [{
                         label: 'Eficiența Capitalului (ROE %)',
                         data: roeData, 
