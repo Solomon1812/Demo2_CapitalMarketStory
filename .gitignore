@@ -370,3 +370,7 @@ FodyWeavers.xsd
 altele/
 # dataGovRo/
 moodle/
+*.csv
+*.mlnet
+bin/
+obj/
