@@ -42,7 +42,7 @@ namespace Demo2_CapitalMarketStory.Services
 
                 current.RataCrestereProfitNet = SafeDivide(
                     current.ProfitNet - previous.ProfitNet,
-                    Math.Abs(previous.ProfitNet)
+                    previous.ProfitNet
                 );
             }
 

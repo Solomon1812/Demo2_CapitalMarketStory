@@ -24,7 +24,6 @@ namespace Demo2_CapitalMarketStory.Pages
         public Company Company { get; set; }
         public List<YearlyFinancialReport> FinancialReports { get; set; }
 
-        // Acum poți avea direct obiectul rezultat aici, sau să menții proprietățile individuale
         public string CompanyStatus { get; set; }
         public double AltmanZScore { get; set; }
         public string InsolvencyRisk { get; set; }
@@ -47,6 +46,12 @@ namespace Demo2_CapitalMarketStory.Pages
                 .OrderBy(r => r.YearReported)
                 .ToListAsync();
 
+            if (!FinancialReports.Any())
+            {
+                CompanyStatus = "Nu exista date financiare";
+                return Page();
+            }
+
             // 2. Apelează noul serviciu curat
             var analysisResult = _analysisService.Analyze(FinancialReports);
 
@@ -54,7 +59,7 @@ namespace Demo2_CapitalMarketStory.Pages
             CompanyStatus = analysisResult.CompanyStatus;
             AltmanZScore = analysisResult.AltmanZScore;
             InsolvencyRisk = analysisResult.InsolvencyRisk;
-            PredictedCapValue = analysisResult.PredictedCapValue;
+            PredictedCapValue = analysisResult.PredictedCapitalValue;
             RealCurrentCapital = analysisResult.RealCurrentCapital;
             PredictedProfit2025 = analysisResult.PredictedProfit2025;
 

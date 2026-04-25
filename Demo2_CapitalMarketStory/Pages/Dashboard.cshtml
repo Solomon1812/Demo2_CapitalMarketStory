@@ -151,21 +151,12 @@
         const roeData = rawData.map(d => d.roe);
 
 
-        // const bckgColor = [];
-
-        // for (let i = 0; i < years.length; i++) {
-        //     if (years[i] > LastYearReported) {
-        //         bckgColor.push('rgb(255, 159, 64)'); 
-        //     } else {
-        //         bckgColor.push('rgb(54, 162, 235)'); 
-        //     }
-        // }
 
 
         const bckgColor = years.map(() => 'rgb(54, 162, 235)'); // Toți anii reali sunt albaștri
 
         // INJECTĂM PREDICȚIA AI DOAR PENTRU GRAFIC
-        const predictedProfit = @Model.PredictedProfit2025;
+        const predictedProfit = @Model.PredictedProfit2025.ToString(System.Globalization.CultureInfo.InvariantCulture);
         const nextYear = years[years.length - 1] + 1;
         
         years.push(nextYear); // Adăugăm 2025 pe axa X
@@ -176,12 +167,18 @@
 
         const yAxisFormatter = {
             callback: function(value) {
-                if (value >= 1000000000) return (value / 1000000000).toFixed(1) + ' Mld';
-                if (value >= 1000000) return (value / 1000000).toFixed(1) + ' Mil';
+
+                const abs = Math.abs(value);
+
+                if (abs >= 1000000000)
+                    return (value / 1000000000).toFixed(1) + ' Mld';
+
+                if (abs >= 1000000)
+                    return (value / 1000000).toFixed(1) + ' Mil';
+
                 return value;
             }
         };
-
 
         const ctx1 = document.getElementById('myChart1');
         if(ctx1) { 
@@ -207,7 +204,7 @@
             new Chart(ctx2, {
                 type: 'line', // Transformăm din Bar în Linie
                 data: {
-                    labels: [LastYearReported], 
+                    labels: years, 
                     datasets: [{
                         label: 'Eficiența Capitalului (ROE %)',
                         data: roeData, 

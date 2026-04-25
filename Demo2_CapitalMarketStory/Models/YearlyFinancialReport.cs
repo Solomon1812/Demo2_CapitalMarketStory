@@ -7,7 +7,6 @@ namespace Demo2_CapitalMarketStory.Models
     public class YearlyFinancialReport
     {
         [Key]
-        [Ignore]
         public int ReportId { get; set; } //primary key autoincrement
 
 
@@ -142,7 +141,6 @@ namespace Demo2_CapitalMarketStory.Models
         public int? NumarSalariati { get; set; }
 
 
-        [Ignore]
         [Display(Name = "ROA Rentabilitatea activelor")]
         [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")] 
@@ -150,7 +148,6 @@ namespace Demo2_CapitalMarketStory.Models
         //interval optim 5%-15%
 
 
-        [Ignore]
         [Display(Name = "ROE Rentabilitatea capitalului propriu")]
         [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
@@ -158,7 +155,6 @@ namespace Demo2_CapitalMarketStory.Models
         //interval optim 15%-20%
 
 
-        [Ignore]
         [Display(Name = "Marja de profit net")]
         [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
@@ -166,14 +162,12 @@ namespace Demo2_CapitalMarketStory.Models
         //interval optim 1%-15%
 
 
-        [Ignore]
         [Display(Name = "Rata de crestere a cifrei de afaceri nete")]
         [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
         public decimal RataCrestereCifraAfaceriNet { get; set; }
 
 
-        [Ignore]
         [Display(Name = "Rata de crestere a profitului")]
         [Column(TypeName = "decimal(14,4)")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
@@ -181,9 +175,7 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         //foreign key and navigation property
-        [Ignore]
         public int ImportId { get; set; }
-        [Ignore]
         public Import? Import { get; set; } 
 
 

@@ -37,7 +37,7 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
             if (!String.IsNullOrEmpty(searchString))
             {
                 companiesIQ = companiesIQ.Where(c => c.Name.Contains(searchString)
-                                                  || c.CUI.ToString().Equals(searchString));
+                                                  || c.CUI.ToString().Contains(searchString));
             }
 
             switch (sortOrder)

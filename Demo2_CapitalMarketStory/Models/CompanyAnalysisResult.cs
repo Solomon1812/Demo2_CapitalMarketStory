@@ -9,7 +9,7 @@
 
         // Rezultate Audit ML (Capitaluri)
         public decimal RealCurrentCapital { get; set; }
-        public decimal PredictedCapValue { get; set; }
+        public decimal PredictedCapitalValue { get; set; }
 
         // Rezultate Forecast ML (Profit)
         public decimal PredictedProfit2025 { get; set; }

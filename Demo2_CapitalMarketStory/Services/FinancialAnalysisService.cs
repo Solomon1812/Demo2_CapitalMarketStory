@@ -8,7 +8,11 @@ namespace Demo2_CapitalMarketStory.Services
         {
             var result = new CompanyAnalysisResult();
 
-            var lastReport = reports.LastOrDefault(r => r.ROA != 0 || r.ROE != 0);
+            //var lastReport = reports.LastOrDefault(r => r.ROA != 0 || r.ROE != 0);
+
+            var lastReport = reports
+                .OrderBy(r => r.YearReported)
+                .LastOrDefault();
 
             if (lastReport == null)
             {
@@ -71,7 +75,7 @@ namespace Demo2_CapitalMarketStory.Services
                 I20 = (float)(lastReport.NumarSalariati ?? 0)
             };
             var PredictionBenchmark = MLCapitalModel.Predict(sampleDataCap);
-            result.PredictedCapValue = (decimal)PredictionBenchmark.Score;
+            result.PredictedCapitalValue = (decimal)PredictionBenchmark.Score;
 
             // 4. Predicția Profitului pe anul viitor (AI-ul Forecaster)
             var sampleDataProfit = new MLProfitNetModel.ModelInput()

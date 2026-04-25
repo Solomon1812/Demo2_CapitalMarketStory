@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using CsvHelper.Configuration;
 using Demo2_CapitalMarketStory.Data;
 using Demo2_CapitalMarketStory.Models;
 using Demo2_CapitalMarketStory.Services;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.ML;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -30,7 +32,7 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
         public Import Import { get; set; } = default!;
 
         [BindProperty]
-        public IFormFile UserFile { get; set; }
+        public IFormFile? UserFile { get; set; }
 
         [BindProperty]
         public bool ConfirmOverwrite { get; set; } = false;
@@ -62,73 +64,86 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                 Import.FileName = UserFile.FileName;
 
 
-                List<YearlyFinancialReport> RoughReport;
+                List<YearlyFinancialReport> RawReport;
 
+                var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+                {
+                    HeaderValidated = null,
+                    MissingFieldFound = null
+                };
 
                 using (var stream = UserFile.OpenReadStream())
                 using (var reader = new StreamReader(stream))
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                using (var csv = new CsvReader(reader, config))
                 {
-                    RoughReport = csv.GetRecords<YearlyFinancialReport>().ToList();
+                    RawReport = csv.GetRecords<YearlyFinancialReport>().ToList();
 
                 }
-                Import.StartYear = RoughReport.Min(r => r.YearReported);
-                Import.EndYear = RoughReport.Max(r => r.YearReported);
+
+                if (!RawReport.Any())
+                {
+                    ModelState.AddModelError("", "Fisierul nu contine date.");
+                    return Page();
+                }
 
 
-                var IncomingYears = RoughReport
+                Import.StartYear = RawReport.Min(r => r.YearReported);
+                Import.EndYear = RawReport.Max(r => r.YearReported);
+
+
+                var IncomingYears = RawReport
                     .Select(r => r.YearReported)
                     .ToList();
 
 
-                var OldReport = _context.YearlyFinancialReport
+                var ExistingReport = _context.YearlyFinancialReport
                     .Include(r => r.Import)
                     .Where(r => r.Import.CompanyId == Import.CompanyId)
                     .ToList();
 
-                var OverlappingReports = OldReport
+                var OverlappingReport = ExistingReport
                     .Where(r => IncomingYears
-                        .Contains(r.YearReported)).ToList();
+                        .Contains(r.YearReported))
+                    .ToList();
 
 
-                if (OverlappingReports.Any())
+                if (OverlappingReport.Any() && !ConfirmOverwrite)
                 {
-                    if (ConfirmOverwrite == true)
-                    {
-                        _context.YearlyFinancialReport.RemoveRange(OverlappingReports);
-                        await _context.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Fisierul contine ani care exista deja. Bifeaza casuta pentru a suprascrie anii existenti.");
-                        return Page();
-                    }
+                    ModelState.AddModelError("",
+                        "Fisierul contine ani existenti. Bifeaza suprascriere.");
+                    return Page();
                 }
 
-                var OldPrediction = OldReport
+                _context.YearlyFinancialReport.RemoveRange(OverlappingReport);
+
+                var PredictionToDelete = ExistingReport
                     .Where(r => r.YearReported > Import.EndYear)
                     .ToList();
-                _context.YearlyFinancialReport.RemoveRange(OldPrediction);
+
+                if (PredictionToDelete.Any())
+                {
+                    _context.YearlyFinancialReport.RemoveRange(PredictionToDelete);
+                }
 
 
-
-                var CalculatedReport = _calcService.CalculateKpi(RoughReport);
+                var CalculatedReport = _calcService.CalculateKpi(RawReport);
 
                 
 
                 Import.Reports = CalculatedReport;
                 _context.Import.Add(Import);
 
-                _context.YearlyFinancialReport.AddRange(CalculatedReport);
                 await _context.SaveChangesAsync();
 
                 return RedirectToPage("/Dashboard", new { companyId = Import.CompanyId });
 
-
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Eroare: " + ex.Message);
+                var inner = ex.InnerException?.Message ?? "";
+
+                ModelState.AddModelError("",
+                    "Eroare: " + ex.Message + " | " + inner);
 
                 return Page();
             }
