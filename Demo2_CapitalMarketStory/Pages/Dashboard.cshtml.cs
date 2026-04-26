@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Demo2_CapitalMarketStory.Pages
 {
@@ -33,8 +34,31 @@ namespace Demo2_CapitalMarketStory.Pages
 
         public async Task<IActionResult> OnGetAsync(int? companyId)
         {
-            if (companyId == null) 
-                return RedirectToPage("/Companies/Create");
+
+
+            // 1. Luăm ID-ul userului logat
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // 2. Dacă a dat click pe "Dashboard" din meniu fără să specifice compania
+            if (companyId == null)
+            {
+                // Căutăm ultima companie creată de acest user
+                var lastCompany = await _context.Company
+                    .Where(c => c.UserId == currentUserId)
+                    .OrderByDescending(c => c.CompanyId) // Cea mai recentă
+                    .FirstOrDefaultAsync();
+
+                if (lastCompany != null)
+                {
+                    // ȘMECHERIA: Îl redirecționăm automat pe dashboard-ul ultimei companii!
+                    return RedirectToPage("/Dashboard", new { companyId = lastCompany.CompanyId });
+                }
+                else
+                {
+                    TempData["InfoMessage"] = "Nu ai nicio companie înregistrată. Creează prima ta companie pentru a putea vizualiza Dashboard-ul!";                    // Dacă e un user complet nou și nu are nicio companie, abia atunci îl punem să creeze.
+                    return RedirectToPage("/Companies/Create");
+                }
+            }
 
             Company = await _context.Company.FirstOrDefaultAsync(m => m.CompanyId == companyId);
             if (Company == null) 

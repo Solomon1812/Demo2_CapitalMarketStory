@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Demo2_CapitalMarketStory.Data;
 using Demo2_CapitalMarketStory.Models;
+using System.Security.Claims;
 
 namespace Demo2_CapitalMarketStory.Pages.Companies
 {
@@ -28,18 +29,28 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
         public async Task OnGetAsync(string? sortOrder, string? searchString)
         {
             CompanySort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
             CurrentFilter = searchString;
 
+            // 1. Începem interogarea
             IQueryable<Company> companiesIQ = from c in _context.Company select c;
 
+            // 2. APLICĂM SECURITATEA PRIMA DATĂ (Izolarea datelor)
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+            if (!User.IsInRole("Admin"))
+            {
+                // Dacă NU e admin, tăiem din start companiile care nu îi aparțin
+                companiesIQ = companiesIQ.Where(c => c.UserId == currentUserId);
+            }
+
+            // 3. APLICĂM CĂUTAREA (acum va căuta doar în companiile la care are voie)
             if (!String.IsNullOrEmpty(searchString))
             {
                 companiesIQ = companiesIQ.Where(c => c.Name.Contains(searchString)
                                                   || c.CUI.ToString().Contains(searchString));
             }
 
+            // 4. APLICĂM SORTAREA
             switch (sortOrder)
             {
                 case "name_desc":
@@ -51,6 +62,7 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
                     break;
             }
 
+            // 5. ABIA LA FINAL EXECUTĂM INTEROGAREA
             Company = await companiesIQ
                 .AsNoTracking()
                 .ToListAsync();

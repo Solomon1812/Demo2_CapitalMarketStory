@@ -4,13 +4,41 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center py-5 mb-4 bg-light rounded shadow-sm" style="margin-top: 20px;">
-    <h1 class="display-4 fw-bold" style="color: darkblue;">CapitalMarket<span style="color: darkorange;">Story</span></h1>
-    <p> Analiza financiară a firmei tale, simplificată. Acest proiect este dedicat analizei financiare a companiilor listate la data.gov.ro, Ministerul Finantelor. Scopul său este de a oferi investitorilor și analiștilor un instrument pentru evaluarea performanței financiare a companiilor, prin intermediul unor rapoarte detaliate și vizualizări interactive. </p>
-    <a asp-page="/Companies/Index" class="btn btn-primary btn-lg mt-4 px-5 shadow" style="border-radius: 10px;">
-        Începe Analiza
-    </a>
+<div class="text-center" style="margin-top: 20px;">
+    <h1 style="color: darkblue;">CapitalMarket<span style="color: darkorange;">Story</span></h1>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        // VARIanta PENTRU UTILIZATORII AUTENTIFICAȚI
+        <h2 class="mt-4">Bine ai revenit, <span style="color: darkblue;">@User.Identity.Name</span>!</h2>
+        <p class="lead mt-3">Continuă analiza financiară sau adaugă date noi pentru companiile tale.</p>
+
+        <div class="mt-5 d-flex justify-content-center gap-3">
+            @* Aici punem link-uri rapide. Poți ajusta link-urile în funcție de structura ta. *@
+            <a asp-page="/Companies/Index" class="btn btn-outline-primary btn-lg shadow-sm">
+                Companiile Mele
+            </a>
+            <a asp-page="/Imports/Index" class="btn btn-outline-secondary btn-lg shadow-sm">
+                Istoric Importuri
+            </a>
+            <a asp-page="/Companies/Create" class="btn btn-primary btn-lg shadow">
+                + Analizează Companie Nouă
+            </a>
+        </div>
+    }
+    else
+    {
+        // VARIANTA PENTRU VIZITATORI (Ce aveai înainte)
+        <p>
+            Analiza financiară a firmei tale, simplificată. Acest proiect este dedicat analizei financiare a companiilor listate la data.gov.ro, Ministerul Finantelor. 
+            Scopul său este de a oferi investitorilor și analiștilor un instrument pentru evaluarea performanței financiare a companiilor, prin intermediul unor rapoarte detaliate și vizualizări interactive.
+        </p>
+        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary" style="border-radius: 10px;">
+            Începe Analiza (Creează Cont)
+        </a>
+        <div class="mt-3">
+            <span class="text-muted">Ai deja cont?</span>
+            <a asp-area="Identity" asp-page="/Account/Login" class="text-decoration-none fw-bold">Autentifică-te</a>
+        </div>
+    }
 </div>
-
-
-

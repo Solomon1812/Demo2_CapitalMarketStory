@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Security.Claims;
 
 namespace Demo2_CapitalMarketStory.Pages.Companies
 {
@@ -35,6 +36,8 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
             {
                 return Page();
             }
+            // Set the UserId property to the current user's ID
+            Company.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             _context.Company.Add(Company);
             await _context.SaveChangesAsync();

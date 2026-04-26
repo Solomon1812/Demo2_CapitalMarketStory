@@ -6,9 +6,14 @@
     var FirstYearReported = Model.FinancialReports.FirstOrDefault().Import.StartYear;
     var LastYearReported = Model.FinancialReports.FirstOrDefault().Import.EndYear;
 
+    var ImportDate = Model.FinancialReports.FirstOrDefault().Import.ImportDate.ToString("dd.MM.yyyy");
 }
 
 <h2>Evolutia companiei: @Model.Company?.Name</h2>
+<p style="color: gray; font-style: italic; margin-bottom: 20px;">
+    Analiză generată la data de: @ImportDate
+</p>
+
 <h3 style="color:darkblue;">Status curent (pe baza ultimului an): @Model.CompanyStatus</h3>
 <h3 style="color:darkblue;">Scor insolventa: @Model.AltmanZScore.ToString("F2") - indicand @Model.InsolvencyRisk</h3>
 
@@ -59,7 +64,14 @@
 <h3>Rezumatul companiei tale</h3>
 <br />
 
-<table class="table">
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Rezumatul companiei tale</h3>
+    <button onclick="downloadCSV('Indicatori_KPI_@(Model.Company?.Name).csv')" class="btn btn-success shadow-sm">
+        ⬇️ Descarcă Tabel (Excel/CSV)
+    </button>
+</div>
+
+<table class="table table-striped" id="kpiTable">
     <thead>
         <tr>
             <th>Anul</th>
@@ -80,7 +92,7 @@
 
             <tr>
                 <td>@report.YearReported</td>
-                <td>@report.ROA.ToString("P2")</td> @* sau <td>@Html.DisplayFor(modelItem => report.ROA)</td> annotation model *@
+                <td>@report.ROA.ToString("P2")</td>
                 <td>@report.ROE.ToString("P2")</td>
                 <td>@report.MarjaProfit.ToString("P2")</td>
                 <td>
@@ -90,33 +102,17 @@
                     }
                     else
                     {
-                        @if(report.RataCrestereCifraAfaceriNet > 0)
-                        {
-                            <span style="background-color: limegreen"> @report.RataCrestereCifraAfaceriNet.ToString("P2")</span>
-                        }
-                        else
-                        {
-                            <span style="background-color: red"> @report.RataCrestereCifraAfaceriNet.ToString("P2")</span>
-                        }
-
+                        @report.RataCrestereCifraAfaceriNet.ToString("P2")
                     }
                 </td>
-
                 <td>
                     @if (report.RataCrestereProfitNet == 0)
                     {
-                        @("N/A")
+                        <span>N/A</span>
                     }
                     else
                     {
-                        @if(report.RataCrestereProfitNet > 0)
-                        {
-                            <span style="background-color: limegreen"> @report.RataCrestereProfitNet.ToString("P2")</span>
-                        }
-                        else
-                        {
-                            <span style="background-color: red"> @report.RataCrestereProfitNet.ToString("P2")</span>
-                        }
+                        @report.RataCrestereProfitNet.ToString("P2")
                     }
                 </td>
             </tr>
@@ -126,14 +122,12 @@
 
 
 
-
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
+<script>
         const FirstYearReported = @FirstYearReported;
         const LastYearReported = @LastYearReported;
-
 
         const rawData = @Html.Raw(Json.Serialize(
             Model.FinancialReports
@@ -145,51 +139,42 @@
                 })
         ));
 
-
-        const years = rawData.map(d => d.yearReported); 
+        // DATELE REALE (Fără predicții)
+        const realYears = rawData.map(d => d.yearReported); 
         const profitData = rawData.map(d => d.profitNet);
         const roeData = rawData.map(d => d.roe);
+        const bckgColor = realYears.map(() => 'rgb(54, 162, 235)'); // Albaștri
 
-
-
-
-        const bckgColor = years.map(() => 'rgb(54, 162, 235)'); // Toți anii reali sunt albaștri
-
-        // INJECTĂM PREDICȚIA AI DOAR PENTRU GRAFIC
+        // PREGĂTIM DATELE DOAR PENTRU GRAFICUL DE PROFIT (Includem 2025)
         const predictedProfit = @Model.PredictedProfit2025.ToString(System.Globalization.CultureInfo.InvariantCulture);
-        const nextYear = years[years.length - 1] + 1;
+        const nextYear = realYears[realYears.length - 1] + 1;
         
-        years.push(nextYear); // Adăugăm 2025 pe axa X
-        profitData.push(predictedProfit); // Adăugăm profitul AI
-        bckgColor.push('rgb(255, 159, 64)'); // Bara 2025 devine portocalie!
-        roeData.push(null); // Chart.js va opri linia de ROE exact la 2024, ignorând 2025
+        // Creăm array-uri noi (clonate) special pentru Chart 1
+        const chart1Years = [...realYears, nextYear]; 
+        const chart1ProfitData = [...profitData, predictedProfit];
+        const chart1BckgColor = [...bckgColor, 'rgb(255, 159, 64)']; // Adăugăm portocaliu
 
-
+        // FORMATATOR AXA Y
         const yAxisFormatter = {
             callback: function(value) {
-
                 const abs = Math.abs(value);
-
-                if (abs >= 1000000000)
-                    return (value / 1000000000).toFixed(1) + ' Mld';
-
-                if (abs >= 1000000)
-                    return (value / 1000000).toFixed(1) + ' Mil';
-
+                if (abs >= 1000000000) return (value / 1000000000).toFixed(1) + ' Mld';
+                if (abs >= 1000000) return (value / 1000000).toFixed(1) + ' Mil';
                 return value;
             }
         };
 
+        // GRAFIC 1: PROFIT (Folosește datele clonate cu anul 2025)
         const ctx1 = document.getElementById('myChart1');
         if(ctx1) { 
             new Chart(ctx1, {
                 type: 'bar',
                 data: {
-                    labels: years,
+                    labels: chart1Years,
                     datasets: [{
                         label: 'Profit net (RON)',
-                        data: profitData, 
-                        backgroundColor: bckgColor,
+                        data: chart1ProfitData, 
+                        backgroundColor: chart1BckgColor,
                         borderColor: "rgb(0, 0, 0)",
                         borderWidth: 1
                     }]
@@ -199,21 +184,22 @@
             });
         }
 
+        // GRAFIC 2: ROE (Folosește doar datele reale, fără 2025)
         const ctx2 = document.getElementById('myChart2');
         if(ctx2) {
             new Chart(ctx2, {
-                type: 'line', // Transformăm din Bar în Linie
+                type: 'line', 
                 data: {
-                    labels: years, 
+                    labels: realYears, // Aici folosim anii curati
                     datasets: [{
                         label: 'Eficiența Capitalului (ROE %)',
-                        data: roeData, 
-                        borderColor: 'rgb(75, 192, 192)', // O linie turcoaz elegantă
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Culoare de umplere sub linie
+                        data: roeData, // Doar datele reale
+                        borderColor: 'rgb(75, 192, 192)', 
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)', 
                         borderWidth: 3,
-                        tension: 0.3, // Face linia curbată (smooth)
+                        tension: 0.3, 
                         fill: true,
-                        pointBackgroundColor: bckgColor, // Păstrăm culoarea portocalie pentru anul prezis de AI!
+                        pointBackgroundColor: bckgColor, 
                         pointRadius: 5
                     }]
                 },
@@ -222,7 +208,7 @@
                     scales: { 
                         y: { 
                             ticks: { 
-                                callback: function(value) { return value + '%'; } // Punem % pe axa Y
+                                callback: function(value) { return value + '%'; } 
                             } 
                         } 
                     } 
@@ -230,5 +216,39 @@
             });
         }
 
+
+
+        // FUNCȚIA DE DESCĂRCARE TABEL ÎN EXCEL/CSV
+        function downloadCSV(filename) {
+            let csv = [];
+            // Luăm rândurile doar din tabelul nostru
+            let rows = document.querySelectorAll("table#kpiTable tr");
+            
+            for (let i = 0; i < rows.length; i++) {
+                let row = [], cols = rows[i].querySelectorAll("td, th");
+                
+                for (let j = 0; j < cols.length; j++) {
+                    // Curățăm textul de spații libere sau HTML
+                    let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, "").trim();
+                    // Punem datele între ghilimele ca să nu se strice formatul dacă există virgule
+                    row.push('"' + data + '"');
+                }
+                // Unim coloanele cu virgulă
+                csv.push(row.join(","));
+            }
+
+            // Creăm fișierul fizic și forțăm descărcarea
+            let csvFile = new Blob([csv.join("\n")], {type: "text/csv"});
+            let downloadLink = document.createElement("a");
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = "none";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+
     </script>
+    
 }

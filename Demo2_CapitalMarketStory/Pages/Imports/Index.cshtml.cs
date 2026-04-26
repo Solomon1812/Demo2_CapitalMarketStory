@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Demo2_CapitalMarketStory.Data;
+using Demo2_CapitalMarketStory.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Demo2_CapitalMarketStory.Data;
-using Demo2_CapitalMarketStory.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Demo2_CapitalMarketStory.Pages.Imports
 {
@@ -29,9 +30,20 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
             CurrentCompanyFilter = searchCompany;
             CurrentDateFilter = searchDate;
 
+            // 1. Începem interogarea și includem compania
             IQueryable<Import> importsIQ = _context.Import
                 .Include(i => i.Company);
 
+            // 2. APLICĂM SECURITATEA PRIMA DATĂ
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!User.IsInRole("Admin"))
+            {
+                // Tăiem importurile care aparțin altor companii
+                importsIQ = importsIQ.Where(i => i.Company.UserId == currentUserId);
+            }
+
+            // 3. APLICĂM FILTRELE DE CĂUTARE (pe lista deja securizată)
             if (!String.IsNullOrEmpty(searchCompany))
             {
                 importsIQ = importsIQ
@@ -44,9 +56,11 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
                     .Where(i => i.ImportDate.Date == searchDate.Value.Date);
             }
 
+            // 4. APLICĂM ORDONAREA
             importsIQ = importsIQ
                 .OrderByDescending(i => i.ImportDate);
 
+            // 5. EXECUTĂM INTEROGAREA
             Import = await importsIQ
                 .AsNoTracking()
                 .ToListAsync();

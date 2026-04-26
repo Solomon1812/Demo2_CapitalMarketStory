@@ -89,6 +89,7 @@
                 </td>
 
                 <td style="white-space: nowrap;">
+                    <a asp-page="/Dashboard" asp-route-companyId="@item.CompanyId" class="btn btn-success btn-sm fw-bold">Vezi Analiza</a>
                     <a asp-page="/Imports/Create" asp-route-companyId="@item.CompanyId" class="btn btn-sm btn-success">Add Import</a>
                     <a asp-page="./Edit" asp-route-id="@item.CompanyId" class="btn btn-sm btn-outline-primary">Edit</a>
                     <a asp-page="./Details" asp-route-id="@item.CompanyId" class="btn btn-sm btn-outline-info">Details</a>

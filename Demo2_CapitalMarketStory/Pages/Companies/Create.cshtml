@@ -8,6 +8,17 @@
 <h1>Create</h1>
 
 <h4>Company</h4>
+
+
+@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show shadow-sm" role="alert">
+        <strong> Bun venit!</strong> @TempData["InfoMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,7 +36,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Company.FoundedDate" class="control-label"></label>
-                <input asp-for="Company.FoundedDate" class="form-control" aria-required="true" min="1900-01-01" max="2030-12-31" />
+                <input asp-for="Company.FoundedDate" class="form-control" type="date" aria-required="true" min="1900-01-01" max="2030-12-31" />
                 <span asp-validation-for="Company.FoundedDate" class="text-danger"></span>
             </div>
             <div class="form-group">

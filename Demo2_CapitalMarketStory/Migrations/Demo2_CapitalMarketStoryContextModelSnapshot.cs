@@ -57,6 +57,9 @@ namespace Demo2_CapitalMarketStory.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Website")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");

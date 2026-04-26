@@ -9,6 +9,8 @@ namespace Demo2_CapitalMarketStory.Models
     {
         public int CompanyId { get; set; } //primary key autoincrement
 
+        public string? UserId { get; set; }
+
 
         [Display(Name = "Company name")]
         [StringLength(150, MinimumLength = 3)]
@@ -23,7 +25,6 @@ namespace Demo2_CapitalMarketStory.Models
 
         [Display(Name = "Date the company was founded")]
         [DataType(DataType.Date)]
-        [Range(typeof(DateTime), "1900-01-01", "2025-12-31", ErrorMessage = "Date out of bounds")]
         [Required()]
         public DateTime FoundedDate { get; set; }
 
@@ -57,8 +58,8 @@ namespace Demo2_CapitalMarketStory.Models
         public string? Website { get; set; }
 
 
-        //navigation property
 
+        //navigation property
         public ICollection<Import> Imports { get; set; } = new List<Import>();
 
     }
