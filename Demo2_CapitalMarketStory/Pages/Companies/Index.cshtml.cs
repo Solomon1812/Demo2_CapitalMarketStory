@@ -31,38 +31,31 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
             CompanySort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             CurrentFilter = searchString;
 
-            // 1. Începem interogarea
             IQueryable<Company> companiesIQ = from c in _context.Company select c;
 
-            // 2. APLICĂM SECURITATEA PRIMA DATĂ (Izolarea datelor)
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!User.IsInRole("Admin"))
             {
-                // Dacă NU e admin, tăiem din start companiile care nu îi aparțin
                 companiesIQ = companiesIQ.Where(c => c.UserId == currentUserId);
             }
 
-            // 3. APLICĂM CĂUTAREA (acum va căuta doar în companiile la care are voie)
             if (!String.IsNullOrEmpty(searchString))
             {
                 companiesIQ = companiesIQ.Where(c => c.Name.Contains(searchString)
                                                   || c.CUI.ToString().Contains(searchString));
             }
 
-            // 4. APLICĂM SORTAREA
             switch (sortOrder)
             {
                 case "name_desc":
                     companiesIQ = companiesIQ.OrderByDescending(c => c.Name);
                     break;
                 default:
-                    // Implicit le ordonam alfabetic A-Z
                     companiesIQ = companiesIQ.OrderBy(c => c.Name);
                     break;
             }
 
-            // 5. ABIA LA FINAL EXECUTĂM INTEROGAREA
             Company = await companiesIQ
                 .AsNoTracking()
                 .ToListAsync();

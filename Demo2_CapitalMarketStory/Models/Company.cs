@@ -19,6 +19,7 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         [Display(Name = "Company's tax identification number")]
+        [Range(0, 999999)]
         [Required()]
         public int CUI { get; set; }
 
@@ -29,7 +30,8 @@ namespace Demo2_CapitalMarketStory.Models
         public DateTime FoundedDate { get; set; }
 
 
-        [Display(Name = "Type of activity")]
+        [Display(Name = "Type of activity CAEN")]
+        [Range(0, 9999)]
         [Required()]
         public int CAEN { get; set; }
 

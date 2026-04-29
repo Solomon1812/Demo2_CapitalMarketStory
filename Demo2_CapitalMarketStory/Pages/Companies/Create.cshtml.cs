@@ -29,14 +29,12 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
         [BindProperty]
         public Company Company { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            // Set the UserId property to the current user's ID
             Company.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             _context.Company.Add(Company);

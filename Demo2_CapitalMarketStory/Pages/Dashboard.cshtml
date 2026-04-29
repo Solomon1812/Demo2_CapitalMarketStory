@@ -29,22 +29,6 @@
     </p>
 
     <hr style="border-top: 1px solid black; "/>
-
-    <p style="color: dimgray; ">
-        <strong>Concluzia algoritmului:</strong> 
-        @* @if (Model.RealCurrentCapital > Model.PredictedCapValue)
-        {
-            <span style="color: green;">
-                Compania este <strong>sub-evaluată</strong> de piață. Produce mai multă avere reală (capital) decât ar fi capabilă media națională având la dispoziție aceleași active și vânzări. Este o demonstrație de eficiență a managementului.
-            </span>
-        }
-        else
-        {
-            <span style="color: red;">
-                Compania este <strong>supra-evaluată</strong> (sau ineficientă). Algoritmul indică faptul că, având aceleași active și vânzări, o firmă medie din România ar produce un capital mult mai mare. Resursele nu sunt exploatate la potențialul maxim.
-            </span>
-        } *@
-    </p>
 </div>
 
 <br />
@@ -67,7 +51,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h3>Rezumatul companiei tale</h3>
     <button onclick="downloadCSV('Indicatori_KPI_@(Model.Company?.Name).csv')" class="btn btn-success shadow-sm">
-        ⬇️ Descarcă Tabel (Excel/CSV)
+        Descarcă Tabel (CSV)
     </button>
 </div>
 
@@ -139,22 +123,18 @@
                 })
         ));
 
-        // DATELE REALE (Fără predicții)
         const realYears = rawData.map(d => d.yearReported); 
         const profitData = rawData.map(d => d.profitNet);
         const roeData = rawData.map(d => d.roe);
-        const bckgColor = realYears.map(() => 'rgb(54, 162, 235)'); // Albaștri
+        const bckgColor = realYears.map(() => 'rgb(54, 162, 235)'); 
 
-        // PREGĂTIM DATELE DOAR PENTRU GRAFICUL DE PROFIT (Includem 2025)
         const predictedProfit = @Model.PredictedProfit2025.ToString(System.Globalization.CultureInfo.InvariantCulture);
         const nextYear = realYears[realYears.length - 1] + 1;
         
-        // Creăm array-uri noi (clonate) special pentru Chart 1
         const chart1Years = [...realYears, nextYear]; 
         const chart1ProfitData = [...profitData, predictedProfit];
-        const chart1BckgColor = [...bckgColor, 'rgb(255, 159, 64)']; // Adăugăm portocaliu
+        const chart1BckgColor = [...bckgColor, 'rgb(255, 159, 64)']; 
 
-        // FORMATATOR AXA Y
         const yAxisFormatter = {
             callback: function(value) {
                 const abs = Math.abs(value);
@@ -164,7 +144,7 @@
             }
         };
 
-        // GRAFIC 1: PROFIT (Folosește datele clonate cu anul 2025)
+
         const ctx1 = document.getElementById('myChart1');
         if(ctx1) { 
             new Chart(ctx1, {
@@ -184,16 +164,16 @@
             });
         }
 
-        // GRAFIC 2: ROE (Folosește doar datele reale, fără 2025)
+
         const ctx2 = document.getElementById('myChart2');
         if(ctx2) {
             new Chart(ctx2, {
                 type: 'line', 
                 data: {
-                    labels: realYears, // Aici folosim anii curati
+                    labels: realYears, 
                     datasets: [{
                         label: 'Eficiența Capitalului (ROE %)',
-                        data: roeData, // Doar datele reale
+                        data: roeData, 
                         borderColor: 'rgb(75, 192, 192)', 
                         backgroundColor: 'rgba(75, 192, 192, 0.2)', 
                         borderWidth: 3,
@@ -218,26 +198,21 @@
 
 
 
-        // FUNCȚIA DE DESCĂRCARE TABEL ÎN EXCEL/CSV
+        // DESCĂRCARE TABEL ÎN CSV
         function downloadCSV(filename) {
             let csv = [];
-            // Luăm rândurile doar din tabelul nostru
             let rows = document.querySelectorAll("table#kpiTable tr");
             
             for (let i = 0; i < rows.length; i++) {
                 let row = [], cols = rows[i].querySelectorAll("td, th");
                 
                 for (let j = 0; j < cols.length; j++) {
-                    // Curățăm textul de spații libere sau HTML
                     let data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, "").trim();
-                    // Punem datele între ghilimele ca să nu se strice formatul dacă există virgule
                     row.push('"' + data + '"');
                 }
-                // Unim coloanele cu virgulă
                 csv.push(row.join(","));
             }
 
-            // Creăm fișierul fizic și forțăm descărcarea
             let csvFile = new Blob([csv.join("\n")], {type: "text/csv"});
             let downloadLink = document.createElement("a");
             downloadLink.download = filename;

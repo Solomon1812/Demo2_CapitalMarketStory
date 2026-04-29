@@ -64,7 +64,7 @@ namespace Demo2_CapitalMarketStory.Pages.Companies
                     .Where(r => importIds.Contains(r.ImportId))
                     .ToList();
 
-                // sters
+
                 if (rapoarteCopii.Any())
                 {
                     _context.YearlyFinancialReport

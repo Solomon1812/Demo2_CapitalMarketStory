@@ -8,8 +8,6 @@ namespace Demo2_CapitalMarketStory.Services
         {
             var result = new CompanyAnalysisResult();
 
-            //var lastReport = reports.LastOrDefault(r => r.ROA != 0 || r.ROE != 0);
-
             var lastReport = reports
                 .OrderBy(r => r.YearReported)
                 .LastOrDefault();
@@ -22,7 +20,8 @@ namespace Demo2_CapitalMarketStory.Services
                 return result;
             }
 
-            // 1. Calcul Performanță (Iluzia ROE și Unghiul Mort reparate)
+
+            // 1. Calcul Performanta
             decimal rezultatNet = lastReport.ProfitNet - lastReport.PierdereNet;
             decimal rezultatBrut = lastReport.ProfitBrut - lastReport.PierdereBrut;
             int scor = 0;
@@ -39,6 +38,7 @@ namespace Demo2_CapitalMarketStory.Services
             if (scor >= 4) result.CompanyStatus = "Performanta excelenta";
             else if (scor >= 2) result.CompanyStatus = "Performanta stabila";
             else result.CompanyStatus = "Risc major / Dificultati financiare";
+
 
             // 2. Calcul Z-Score
             decimal totalActive = lastReport.ActiveImobilizate + lastReport.ActiveCirculante + lastReport.CheltuieliAvans;
@@ -63,7 +63,8 @@ namespace Demo2_CapitalMarketStory.Services
                 result.InsolvencyRisk = "Date insuficiente";
             }
 
-            // 3. Evaluare "Fair Value" pe Capital (AI-ul Auditor)
+
+            // 3. Evaluare Capital 
             result.RealCurrentCapital = lastReport.CapitaluriTotale;
             var sampleDataCap = new MLCapitalModel.ModelInput()
             {
@@ -77,7 +78,8 @@ namespace Demo2_CapitalMarketStory.Services
             var PredictionBenchmark = MLCapitalModel.Predict(sampleDataCap);
             result.PredictedCapitalValue = (decimal)PredictionBenchmark.Score;
 
-            // 4. Predicția Profitului pe anul viitor (AI-ul Forecaster)
+
+            // 4. Predicția Profitului 
             var sampleDataProfit = new MLProfitNetModel.ModelInput()
             {
                 I1 = (float)lastReport.ActiveImobilizate,

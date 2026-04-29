@@ -9,12 +9,11 @@
 
     @if (User.Identity.IsAuthenticated)
     {
-        // VARIanta PENTRU UTILIZATORII AUTENTIFICAȚI
+        //UTILIZATORII AUTENTIFICAȚI
         <h2 class="mt-4">Bine ai revenit, <span style="color: darkblue;">@User.Identity.Name</span>!</h2>
         <p class="lead mt-3">Continuă analiza financiară sau adaugă date noi pentru companiile tale.</p>
 
         <div class="mt-5 d-flex justify-content-center gap-3">
-            @* Aici punem link-uri rapide. Poți ajusta link-urile în funcție de structura ta. *@
             <a asp-page="/Companies/Index" class="btn btn-outline-primary btn-lg shadow-sm">
                 Companiile Mele
             </a>
@@ -28,7 +27,7 @@
     }
     else
     {
-        // VARIANTA PENTRU VIZITATORI (Ce aveai înainte)
+        // VIZITATORI 
         <p>
             Analiza financiară a firmei tale, simplificată. Acest proiect este dedicat analizei financiare a companiilor listate la data.gov.ro, Ministerul Finantelor. 
             Scopul său este de a oferi investitorilor și analiștilor un instrument pentru evaluarea performanței financiare a companiilor, prin intermediul unor rapoarte detaliate și vizualizări interactive.

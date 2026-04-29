@@ -35,22 +35,17 @@ namespace Demo2_CapitalMarketStory.Pages
         public async Task<IActionResult> OnGetAsync(int? companyId)
         {
 
-
-            // 1. Luăm ID-ul userului logat
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // 2. Dacă a dat click pe "Dashboard" din meniu fără să specifice compania
             if (companyId == null)
             {
-                // Căutăm ultima companie creată de acest user
                 var lastCompany = await _context.Company
                     .Where(c => c.UserId == currentUserId)
-                    .OrderByDescending(c => c.CompanyId) // Cea mai recentă
+                    .OrderByDescending(c => c.CompanyId) 
                     .FirstOrDefaultAsync();
 
                 if (lastCompany != null)
                 {
-                    // ȘMECHERIA: Îl redirecționăm automat pe dashboard-ul ultimei companii!
                     return RedirectToPage("/Dashboard", new { companyId = lastCompany.CompanyId });
                 }
                 else
@@ -76,10 +71,8 @@ namespace Demo2_CapitalMarketStory.Pages
                 return Page();
             }
 
-            // 2. Apelează noul serviciu curat
             var analysisResult = _analysisService.Analyze(FinancialReports);
 
-            // 3. Mapează rezultatele
             CompanyStatus = analysisResult.CompanyStatus;
             AltmanZScore = analysisResult.AltmanZScore;
             InsolvencyRisk = analysisResult.InsolvencyRisk;

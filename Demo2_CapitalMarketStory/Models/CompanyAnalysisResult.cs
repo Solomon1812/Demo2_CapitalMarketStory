@@ -7,11 +7,11 @@
         public double AltmanZScore { get; set; }
         public string InsolvencyRisk { get; set; }
 
-        // Rezultate Audit ML (Capitaluri)
+        // Rezultate ML (Capitaluri)
         public decimal RealCurrentCapital { get; set; }
         public decimal PredictedCapitalValue { get; set; }
 
-        // Rezultate Forecast ML (Profit)
+        // Rezultate ML (Profit)
         public decimal PredictedProfit2025 { get; set; }
     }
 }
