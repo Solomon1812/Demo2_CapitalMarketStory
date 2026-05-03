@@ -55,9 +55,21 @@ namespace Demo2_CapitalMarketStory.Pages
                 }
             }
 
-            Company = await _context.Company.FirstOrDefaultAsync(m => m.CompanyId == companyId);
-            if (Company == null) 
-                return RedirectToPage("/Companies/Create");
+
+            if (User.IsInRole("Admin"))
+            {
+                Company = await _context.Company.FirstOrDefaultAsync(m => m.CompanyId == companyId);
+            }
+            else
+            {
+                Company = await _context.Company
+                    .FirstOrDefaultAsync(m => m.CompanyId == companyId && m.UserId == currentUserId);
+            }
+
+            if (Company == null)
+            {
+                return RedirectToPage("/Companies/Index");
+            }
 
             FinancialReports = await _context.YearlyFinancialReport
                 .Include(r => r.Import)

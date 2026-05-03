@@ -2,7 +2,7 @@
 {
     public class CompanyAnalysisResult
     {
-        // Rezultate Evaluare Prezentă
+        // Rezultate evaluare prezenta
         public string CompanyStatus { get; set; }
         public double AltmanZScore { get; set; }
         public string InsolvencyRisk { get; set; }
