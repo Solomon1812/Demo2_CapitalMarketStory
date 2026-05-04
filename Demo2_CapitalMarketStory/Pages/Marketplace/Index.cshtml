@@ -1,0 +1,46 @@
+﻿@page
+@model Demo2_CapitalMarketStory.Pages.Marketplace.IndexModel
+@{
+    ViewData["Title"] = "Marketplace Investiții";
+}
+
+<div class="text-center mb-5">
+    <h2>Marketplace Investiții</h2>
+    <p class="text-muted">Aici puteți vizualiza companiile analizate, grupate pe domenii (CAEN), și contacta antreprenorii.</p>
+</div>
+
+<div class="row">
+    @if (!Model.AvailableCompanies.Any())
+    {
+        <div class="alert alert-info">Momentan nu există companii cu date financiare analizate.</div>
+    }
+    else
+    {
+        @foreach (var item in Model.AvailableCompanies)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100 border-start border-primary border-4">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary">@item.Company.Name</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">CAEN: @item.Company.CAEN</h6>
+                        <hr />
+                        <p class="card-text">
+                            <strong>Status Sănătate:</strong>
+                            <span class="@(item.CompanyStatus.Contains("Stabil") ? "text-success" : "text-warning")">
+                                @item.CompanyStatus
+                            </span><br />
+                            <strong>Valoare Estimată:</strong> @item.PredictedCapValue.ToString("N0") RON
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0 text-center pb-3">
+                        <!-- Butonul Magic MailTo -->
+                        <a href="mailto:@item.OwnerEmail?subject=Propunere Investitie: @item.Company.Name&body=Buna ziua, am gasit profilul financiar al companiei dumneavoastra pe platforma CapitalMarketStory si sunt interesat de o colaborare. Putem stabili o discutie?"
+                           class="btn btn-outline-success w-100 fw-bold">
+                            ✉ Contactează Antreprenor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

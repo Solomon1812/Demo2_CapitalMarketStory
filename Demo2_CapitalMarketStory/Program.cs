@@ -30,6 +30,9 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policy =>
     policy.RequireRole("Admin"));
+
+    options.AddPolicy("InvestorPolicy", policy => 
+    policy.RequireRole("Investor", "Admin"));
 });
 
 
@@ -39,6 +42,7 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AuthorizeFolder("/Imports");
     options.Conventions.AuthorizePage("/Dashboard");
 
+    options.Conventions.AuthorizeFolder("/Marketplace", "InvestorPolicy");
 
     options.Conventions.AllowAnonymousToPage("/Index");
 
