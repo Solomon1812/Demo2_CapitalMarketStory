@@ -25,13 +25,19 @@ namespace Demo2_CapitalMarketStory.Pages.Marketplace
             _userManager = userManager; // Avem nevoie de el ca s? lu?m adresa de email a antreprenorului
         }
 
-        // Un model special doar pentru afi?area în Marketplace
+        // Un model special doar pentru afisarea în Marketplace
         public class InvestorViewModel
         {
             public Company Company { get; set; }
             public string OwnerEmail { get; set; }
             public string CompanyStatus { get; set; }
-            public decimal PredictedCapValue { get; set; }
+
+            // --- DATE NOI ADAUGATE PENTRU CARD ---
+            public decimal RealProfit { get; set; }
+            public decimal PredictedProfit { get; set; }
+            public decimal RealCapital { get; set; }
+            public decimal ROA { get; set; }
+            public decimal ROE { get; set; }
         }
 
         public List<InvestorViewModel> AvailableCompanies { get; set; } = new List<InvestorViewModel>();
@@ -52,18 +58,25 @@ namespace Demo2_CapitalMarketStory.Pages.Marketplace
                 // G?sim utilizatorul proprietar în baza de date de Identity
                 var owner = await _userManager.FindByIdAsync(comp.UserId);
 
-                // Lu?m cel mai recent import
                 var latestImport = comp.Imports.OrderByDescending(i => i.ImportDate).First();
 
-                // Refolosim serviciul t?u de analiz? pe care l-ai f?cut pentru Dashboard!
+                // Re?inem ultimul raport real înc?rcat pentru a extrage ROA, ROE ?i profitul
+                var lastReport = latestImport.Reports.OrderByDescending(r => r.YearReported).First();
+
                 var analysisResult = _analysisService.Analyze(latestImport.Reports.ToList());
 
                 AvailableCompanies.Add(new InvestorViewModel
                 {
                     Company = comp,
-                    OwnerEmail = owner?.Email ?? "N/A",
+                    OwnerEmail = owner.Email,
                     CompanyStatus = analysisResult.CompanyStatus,
-                    PredictedCapValue = analysisResult.PredictedCapitalValue
+
+                    // --- ADAUGAM VALORILE NOILE ---
+                    RealProfit = lastReport.ProfitNet - lastReport.PierdereNet, // Profitul real din ultimul an
+                    PredictedProfit = analysisResult.PredictedProfit2025,       // Predic?ia de profit care func?ioneaz?
+                    RealCapital = analysisResult.RealCurrentCapital,            // Capitalul real la zi calculat de service
+                    ROA = lastReport.ROA,                                       // Return on Assets
+                    ROE = lastReport.ROE                                        // Return on Equity
                 });
             }
         }

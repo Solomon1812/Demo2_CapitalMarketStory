@@ -7,6 +7,8 @@
 <div class="text-center" style="margin-top: 20px;">
     <h1 style="color: darkblue;">CapitalMarket<span style="color: darkorange;">Story</span></h1>
 
+
+
     @if (User.Identity.IsAuthenticated)
     {
         <h2 class="mt-4">Bine ai venit, <span style="color: darkblue;">@User.Identity.Name</span>!</h2>
@@ -48,4 +50,27 @@
             </div>
         }
     }
+    else
+    {
+        // --- ZONA PENTRU VIZITATORI (NEAUTENTIFICAȚI) ---
+        <div class="mt-5 mx-auto" style="max-width: 800px;">
+            <h4 class="text-muted mb-4" style="line-height: 1.6;">
+                Analiza financiară a firmei tale, simplificată. Acest proiect este dedicat analizei financiare a companiilor listate la data.gov.ro, Ministerul Finanțelor.
+            </h4>
+            <p class="text-secondary mb-5" style="font-size: 1.1rem;">
+                Scopul său este de a oferi investitorilor și antreprenorilor un instrument puternic pentru evaluarea performanței financiare a companiilor, prin intermediul unor rapoarte detaliate, predicții și vizualizări interactive.
+            </p>
+
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg shadow" style="border-radius: 8px; padding: 12px 35px; font-weight: bold;">
+                Începe Analiza (Creează Cont gratuit)
+            </a>
+
+            <div class="mt-4">
+                <span class="text-muted">Ai deja cont?</span>
+                <a asp-area="Identity" asp-page="/Account/Login" class="text-decoration-none fw-bold text-primary" style="font-size: 1.1rem;">Autentifică-te</a>
+            </div>
+        </div>
+    }
+
+
 </div>
