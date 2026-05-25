@@ -128,7 +128,6 @@ namespace Demo2_CapitalMarketStory.Pages.Imports
 
                 var CalculatedReport = _calcService.CalculateKpi(RawReport);
 
-                
 
                 Import.Reports = CalculatedReport;
                 _context.Import.Add(Import);

@@ -49,7 +49,7 @@ namespace Demo2_CapitalMarketStory.Services
                 decimal X1 = (lastReport.ActiveCirculante - totalDatorii) / totalActive;
                 decimal X2 = rezultatNet / totalActive;
                 decimal X3 = rezultatBrut / totalActive;
-                decimal X4 = totalDatorii == 0 ? 0 : lastReport.CapitaluriTotale / totalDatorii;
+                decimal X4 = totalDatorii == 0 ? 0 :lastReport.CapitaluriTotale / totalDatorii;
 
                 result.AltmanZScore = (double)(6.56m * X1 + 3.26m * X2 + 6.72m * X3 + 1.05m * X4);
 

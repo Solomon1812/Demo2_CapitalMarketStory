@@ -4,9 +4,9 @@
     ViewData["Title"] = "Marketplace Investiții";
 }
 
-<div class="text-center mb-5">
+<div class="text-center mb-4">
     <h2>Marketplace Investiții</h2>
-    <p class="text-muted">Aici puteți vizualiza companiile analizate, grupate pe domenii (CAEN), și contacta antreprenorii.</p>
+    <p>Aici puteți vizualiza companiile analizate, grupate pe domenii (CAEN), și contacta antreprenorii.</p>
 </div>
 
 <div class="row">
@@ -19,52 +19,54 @@
         @foreach (var item in Model.AvailableCompanies)
         {
             <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100 border-start border-primary border-4">
+                <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title text-primary fw-bold">@item.Company.Name</h4>
-                        <h6 class="card-subtitle mb-3 text-muted">CAEN: @item.Company.CAEN</h6>
+                        <h4 class="card-title">@item.Company.Name</h4>
+                        <h6 class="card-subtitle text-muted mb-3">CAEN: @item.Company.CAEN</h6>
 
-                        <!-- Folosim o lista Bootstrap pentru a alinia frumos KPI-urile -->
-                        <ul class="list-group list-group-flush mb-3" style="font-size: 0.95rem;">
-
-                            <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Status Altman:</span>
-                                <!-- Coloram verde pt performanta/stabil, portocaliu pt restul -->
-                                <span class="badge @(item.CompanyStatus.Contains("Performanta") || item.CompanyStatus.Contains("Stabil") ? "bg-success" : "bg-warning text-dark")">
-                                    @item.CompanyStatus
-                                </span>
+
+                                <!-- Operatorul ternar inlocuit cu if-else clasic -->
+                                @if (item.CompanyStatus.Contains("Performanta") || item.CompanyStatus.Contains("Stabil"))
+                                {
+                                    <span class="badge bg-success">@item.CompanyStatus</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">@item.CompanyStatus</span>
+                                }
                             </li>
 
-                            <li class="list-group-item px-0 d-flex justify-content-between">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Profit Real (Ultimul An):</span>
                                 <strong>@item.RealProfit.ToString("N0") RON</strong>
                             </li>
 
-                            <li class="list-group-item px-0 d-flex justify-content-between">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Profit Estimat (Viitor):</span>
-                                <strong class="text-primary">@item.PredictedProfit.ToString("N0") RON</strong>
+                                <strong>@item.PredictedProfit.ToString("N0") RON</strong>
                             </li>
 
-                            <li class="list-group-item px-0 d-flex justify-content-between">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>Capital Real Curent:</span>
                                 <strong>@item.RealCapital.ToString("N0") RON</strong>
                             </li>
 
-                            <li class="list-group-item px-0 d-flex justify-content-between">
+                            <li class="list-group-item d-flex justify-content-between">
                                 <span>ROA / ROE:</span>
                                 <span>
-                                    <strong class="text-success">@item.ROA.ToString("P2")</strong> /
-                                    <strong class="text-success">@item.ROE.ToString("P2")</strong>
+                                    <strong>@item.ROA.ToString("P2")</strong> /
+                                    <strong>@item.ROE.ToString("P2")</strong>
                                 </span>
                             </li>
-
                         </ul>
                     </div>
 
-                    <div class="card-footer bg-white border-0 text-center pb-3 pt-0">
-                        <!-- Butonul Magic MailTo -->
-                        <a href="mailto:@item.OwnerEmail?subject=Propunere Investitie: @item.Company.Name&body=Buna ziua, am analizat performanta financiara (ROA: @item.ROA.ToString("P2")) a companiei dumneavoastra pe platforma CapitalMarketStory si sunt interesat de o colaborare. Putem stabili o discutie?"
-                           class="btn btn-outline-success w-100 fw-bold shadow-sm">
+                    <div class="card-footer text-center">
+                        <a href="mailto:@item.OwnerEmail?subject=Propunere de investitie: @item.Company.Name&body=Buna ziua, am analizat performanta financiara (ROA: @item.ROA.ToString("P2")) a companiei dumneavoastra pe platforma CapitalMarketStory si sunt interesat de o colaborare. Putem stabili o discutie?"
+                           class="btn btn-success">
                             Contactează Antreprenor
                         </a>
                     </div>

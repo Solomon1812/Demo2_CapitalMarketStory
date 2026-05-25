@@ -13,7 +13,7 @@ namespace Demo2_CapitalMarketStory.Pages
     public class DashboardModel : PageModel
     {
         private readonly Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext _context;
-        private readonly IFinancialAnalysisService _analysisService; // 1. Injectează serviciul
+        private readonly IFinancialAnalysisService _analysisService; 
 
         public DashboardModel(Demo2_CapitalMarketStory.Data.Demo2_CapitalMarketStoryContext context,
                               IFinancialAnalysisService analysisService)

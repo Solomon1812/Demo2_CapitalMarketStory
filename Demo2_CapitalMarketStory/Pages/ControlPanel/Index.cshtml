@@ -4,100 +4,91 @@
     ViewData["Title"] = "Panou Administrare";
 }
 
-
 <div class="container mt-4">
-    <h2 class="mb-4 text-danger fw-bold"><i class="bi bi-shield-lock"></i> Panou de Control Administrator</h2>
+    <h2 class="mb-4">Panou de Control Administrator</h2>
 
     @if (!string.IsNullOrEmpty(Model.StatusMessage))
     {
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <div class="alert alert-info">
             @Model.StatusMessage
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 
-    <!-- SECTIUNEA 1: STATISTICI PLATFORMA -->
+    <!-- SECȚIUNEA 1: STATISTICI PLATFORMĂ -->
     <div class="row mb-5">
         <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3 shadow-sm h-100">
+            <div class="card text-white bg-primary mb-3">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Utilizatori Înregistrați</h5>
-                    <h1 class="display-4 fw-bold">@Model.TotalUsers</h1>
+                    <h5 class="card-title">Utilizatori inregistrați</h5>
+                    <h2>@Model.TotalUsers</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-success mb-3 shadow-sm h-100">
+            <div class="card text-white bg-success mb-3">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Companii Monitorizate</h5>
-                    <h1 class="display-4 fw-bold">@Model.TotalCompanies</h1>
+                    <h5 class="card-title">Companii monitorizate</h5>
+                    <h2>@Model.TotalCompanies</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-warning text-dark mb-3 shadow-sm h-100">
+            <div class="card text-dark bg-warning mb-3">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Rapoarte Procesate</h5>
-                    <h1 class="display-4 fw-bold">@Model.TotalReports</h1>
+                    <h5 class="card-title">Rapoarte procesate</h5>
+                    <h2>@Model.TotalReports</h2>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SECTIUNEA 2: MENTENANȚĂ BAZĂ DE DATE -->
-    <div class="card border-danger mb-5 shadow-sm">
-        <div class="card-header bg-danger text-white fw-bold">
-            Mentenanță Platformă
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Curățenie de Primăvară (Companii Inactive)</h5>
-            <p class="card-text text-muted">Apasă acest buton pentru a scana baza de date și a șterge definitiv companiile care au fost create, dar pentru care nu s-au încărcat niciodată rapoarte financiare (CSV).</p>
-            
-            <form method="post" asp-page-handler="CleanCompanies">
-                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Ești sigur că vrei să ștergi toate companiile fără date?');">
-                    🗑️ Curăță Baza de Date
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- SECTIUNEA 3: GESTIUNE UTILIZATORI -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-dark text-white fw-bold">
+    <!-- SECȚIUNEA 2: GESTIUNE UTILIZATORI -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
             Gestiune Utilizatori
         </div>
         <div class="card-body">
-            <table class="table table-striped table-hover align-middle">
-                <thead class="table-light">
+            <table class="table table-striped table-bordered">
+                <thead>
                     <tr>
                         <th>Email Utilizator</th>
                         <th>Rol Curent</th>
-                        <th class="text-end">Acțiuni</th>
+                        <th>Acțiuni</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var user in Model.UsersList)
                     {
                         <tr>
-                            <td class="fw-bold">@user.Email</td>
+                            <td>@user.Email</td>
                             <td>
-                                <span class="badge @(user.Role == "Admin" ? "bg-danger" : (user.Role == "Investor" ? "bg-success" : "bg-primary"))">
-                                    @user.Role
-                                </span>
+                                <!-- Aici am inlocuit operatorul ternar cu un if-else clasic -->
+                                @if (user.Role == "Admin")
+                                {
+                                    <span class="badge bg-danger">@user.Role</span>
+                                }
+                                else if (user.Role == "Investor")
+                                {
+                                    <span class="badge bg-success">@user.Role</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary">@user.Role</span>
+                                }
                             </td>
-                            <td class="text-end">
+                            <td>
                                 @if (user.Role != "Admin")
                                 {
                                     <form method="post" asp-page-handler="DeleteUser" style="display:inline;">
                                         <input type="hidden" name="idToDelete" value="@user.ID" />
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('ATENȚIE: Ștergerea utilizatorului îi va șterge și toate datele. Continuăm?');">
-                                            Ban / Șterge Cont
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('ATENȚIE: Ștergerea utilizatorului îi va șterge și toate datele. Continuăm?');">
+                                            Șterge Cont
                                         </button>
                                     </form>
                                 }
                                 else
                                 {
-                                    <span class="text-muted fst-italic">Protejat</span>
+                                    <span class="text-muted">-</span>
                                 }
                             </td>
                         </tr>

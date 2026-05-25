@@ -1,5 +1,4 @@
 using Demo2_CapitalMarketStory.Data;
-using Demo2_CapitalMarketStory.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -60,32 +59,7 @@ namespace Demo2_CapitalMarketStory.Pages.ControlPanel
             }
         }
 
-        // --- AC?IUNEA 1: CUR??ENIE DE PRIM?VAR? ---
-        public async Task<IActionResult> OnPostCleanCompaniesAsync()
-        {
-            // C?ut?m companiile care NU au niciun import asociat
-            var inactiveCompanies = await _context.Company
-                .Include(c => c.Imports)
-                .Where(c => !c.Imports.Any())
-                .ToListAsync();
-
-            if (inactiveCompanies.Any())
-            {
-                int count = inactiveCompanies.Count;
-                _context.Company.RemoveRange(inactiveCompanies);
-                await _context.SaveChangesAsync();
-
-                StatusMessage = $"Succes: Am ?ters {count} companii inactive (f?r? date financiare).";
-            }
-            else
-            {
-                StatusMessage = "Info: Baza de date este curat?. Nu exist? companii inactive.";
-            }
-
-            return RedirectToPage(); // Reînc?rc?m pagina
-        }
-
-        // --- AC?IUNEA 2: ?TERGERE UTILIZATOR ---
+        // --- AC?IUNEA: ?TERGERE UTILIZATOR ---
         public async Task<IActionResult> OnPostDeleteUserAsync(string idToDelete)
         {
             var user = await _userManager.FindByIdAsync(idToDelete);

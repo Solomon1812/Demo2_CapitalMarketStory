@@ -19,7 +19,6 @@ namespace Demo2_CapitalMarketStory.Models
 
 
         [Display(Name = "Company's tax identification number")]
-        [Range(0, 999999)]
         [Required()]
         public int CUI { get; set; }
 
